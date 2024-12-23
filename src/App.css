@@ -253,6 +253,53 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 100vw;
 }
 
+/** Name in banner css **/
+.banner .namecard {
+  margin: 0 auto;  /* Space between .namecard and elements below */
+  padding:20px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 550px; 
+  width: 100%;
+  background-color: #02091c;
+  position: relative;
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.banner .namecard::after{
+  content: '';
+  position: absolute;
+  height: 105%;
+  width: 101%;
+  background-image: conic-gradient(from var(--angle), transparent 70%, #b7bbff);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 20px;
+  animation: 4s spin linear infinite;
+}
+
+.banner .namecard::before{
+  filter: blur(2.5rem);
+  opacity: 0.5;
+}
+
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
+
 .banner .tagline {
   letter-spacing: 5 px;
   font-size: 20px;

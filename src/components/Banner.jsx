@@ -66,36 +66,35 @@ export const Banner = () => {
           }}
         >
           <Col xs={12} md={6} xl={7}>
+            <div style={{ minHeight: "5px", margin: 15 }} className="tagline">
+              <span>{text}</span>
+              {text === "" && (
+                <span style={{ visibility: "hidden" }}>&nbsp;</span>
+              )}{" "}
+              {/* Invisible span */}
+            </div>
+
             <TrackVisibility>
               {({ isVisible }) => (
                 <div
                   className={
-                    isVisible ? "animate__animated animate__fadeIn" : ""
+                    isVisible ? "animate__animated animate__zoomIn" : ""
                   }
                 >
-                  <div style={{ minHeight: "5px" }} className="tagline">
-                    <span>{text}</span>
-                    {text === "" && (
-                      <span style={{ visibility: "hidden" }}>&nbsp;</span>
-                    )}{" "}
-                    {/* Invisible span */}
-                  </div>
-
-                  <h1> Jennifer Shi</h1>
-                  <p>
-                    Computer Science & Finance <span className="purple">@</span>{" "}
-                    University of Waterloo
-                  </p>
-                  <button
-                    className="button"
-                    onClick={() => navigate("./components/Contact.jsx")}
-                  >
-                    About Me{" "}
-                    <ArrowRightCircle style={{ color: "white" }} size={25} />
-                  </button>
+                  <h1 className="namecard"> Jennifer Shi</h1>
                 </div>
               )}
             </TrackVisibility>
+            <p style={{ marginTop: 15 }}>
+              Computer Science & Finance <span className="purple">@</span>{" "}
+              University of Waterloo
+            </p>
+            <button
+              className="button"
+              onClick={() => navigate("./components/Contact.jsx")}
+            >
+              About Me <ArrowRightCircle style={{ color: "white" }} size={25} />
+            </button>
           </Col>
         </Row>
       </Container>
