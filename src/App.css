@@ -567,6 +567,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-left: 8px;
 }
 
+/************ Footer Css ************/
 
-
-
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: grey;
+  font-size: 15px;
+}
