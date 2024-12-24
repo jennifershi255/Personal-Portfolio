@@ -375,35 +375,50 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-bottom: 100px;
 }
 
-.about h2{
+.about h2 {
   text-align: center;
   font-size: 50px;
 	font-weight: 700;
   color: #b7bbff;
   margin-bottom: 50px;
+  position: relative;  
 }
 
+/** creating a line underneath **/
+.about h2::after {
+  content: '';  
+  position: absolute;
+  bottom: -10px;  
+  left: 50%;  
+  transform: translateX(-50%);
+  width: 40%;
+  height: 1.5px; 
+  background: #b7bbff;  
+  box-shadow: 0 0 10px #b7bbff, 0 0 15px #b7bbff, 0 0 20px #6b8cff;  
+}
+
+
 .about .container {
-  display: flex;  /* Use flexbox for horizontal layout */
-  align-items: center;  /* Vertically center the content */
-  justify-content: center;  /* Horizontally center the content */
-  width: 100%;  /* Ensure the container takes up the full width */
+  display: flex; 
+  align-items: center;  
+  justify-content: center;  
+  width: 100%; 
 }
 
 .about .container img {
-  width: 300px;  /* Fixed image size */
-  height: 300px;  /* Keep height equal to width to maintain the circle */
-  border-radius: 50%;  /* Make image a circle */
+  width: 300px; 
+  height: 300px;  
+  border-radius: 50%;  
   box-shadow: 0 0 30px rgba(163, 177, 250, 0.9);
-  object-fit: cover;  /* Ensures the image covers the circle area without distortion */
+  object-fit: cover; 
 }
 
 .about .container p {
   text-align: left;
   font-size: 20px;
-  margin-left: 50px;  /* Optional: Add space between image and text */
-  flex: 1;  /* Text takes up the remaining space */
-  max-width: 50%;  /* Ensure the text takes up half the container width */
+  margin-left: 50px;  
+  flex: 1;  
+  max-width: 50%;  
 }
 
 /************ Projects Css ************/
@@ -417,7 +432,21 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 	font-size: 50px;
 	font-weight: 700;
   text-align: center;
+  position: relative;
 }
+
+.project h2::after {
+  content: '';  
+  position: absolute;
+  bottom: -15px;  
+  left: 50%;  
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1.5px; 
+  background: #b7bbff;  
+  box-shadow: 0 0 10px #b7bbff, 0 0 15px #b7bbff, 0 0 20px #6b8cff; 
+}
+
 .project p {
   font-size: 18px;
   font-weight: 300;
@@ -462,7 +491,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .project .proj-card:hover {
-  box-shadow: 0 0 60px rgba(183, 187, 255, 0.6); /* Softer and more subtle glow */
+  box-shadow: 0 0 60px rgba(183, 187, 255, 0.6); 
 }
 
 .project .proj-card::after{
@@ -482,8 +511,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .project .tech-images .img-container {
-  width: 40px; /* Fixed container width */
-  height: 40px; /* Fixed container height */
+  width: 40px;  
+  height: 40px;  
   display: flex;
   align-items: center;
   justify-content: center;
