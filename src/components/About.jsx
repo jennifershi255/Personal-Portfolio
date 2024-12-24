@@ -26,9 +26,10 @@ export const About = () => {
           baking. Some fun facts about me are that I was a former national-level{" "}
           <strong className="purple"> synchronized swimmer</strong>, I've been
           to over 10 countries, and I have two cats.
-          <br /> <br /> Feel free to <strong className="purple">
-            connect
-          </strong>{" "}
+          <br /> <br /> Feel free to
+          <a href="#connect" className="purple">
+            <strong> connect</strong>{" "}
+          </a>
           with me and explore potential opportunities, collaborations, or simply
           to chat about <strong className="purple">shared interests</strong>!
         </p>

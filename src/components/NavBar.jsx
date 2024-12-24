@@ -74,7 +74,16 @@ export const NavBar = () => {
                 activeLink === "projects" ? "active navbar-link" : "navbar-link"
               }
             >
-              Projects{" "}
+              Projects
+            </Nav.Link>
+            <Nav.Link
+              href="#connect"
+              onClick={() => scrollToSection("connect")}
+              className={
+                activeLink === "connect" ? "active navbar-link" : "navbar-link"
+              }
+            >
+              Connect
             </Nav.Link>
           </Nav>
           <span className="navbar-text">

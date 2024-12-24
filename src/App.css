@@ -566,6 +566,66 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: 16px;   
   margin-left: 8px;
 }
+/************ Connect Css ************/
+
+.connect {
+  padding: 50px;
+  position: relative;
+  text-align: center;
+}
+
+.connect h2{
+  font-weight: 700;
+  font-size: 50px;
+	font-weight: 700;
+  text-align: center;
+  position: relative;
+  color: #b7bbff;
+}
+
+.connect h2::after{
+  content: '';  
+  position: absolute;
+  bottom: -15px;  
+  left: 50%;  
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1.5px; 
+  background: #b7bbff;  
+  box-shadow: 0 0 10px #b7bbff, 0 0 15px #b7bbff, 0 0 20px #6b8cff; 
+}
+
+.connect .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  flex-direction: column;
+  height: 200px; 
+  margin-top: 50px; 
+  transition: box-shadow 0.3s ease;   
+}
+
+
+.connect .box:hover {
+  box-shadow: 0 0 20px rgba(183, 187, 255, 0.8), 0 0 30px rgba(183, 187, 255, 0.6);
+}
+
+.connect .box a {
+  text-decoration: none; 
+  color: #b7bbff; 
+  font-weight: 700; 
+  font-size: 18px;
+  transition: all 0.3s ease; 
+}
+
+.connect .box img {
+  width: 60px;  
+  height: auto;  
+}
+
+.connect .box h4{
+ padding: 20px;
+}
 
 /************ Footer Css ************/
 
@@ -575,3 +635,5 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: grey;
   font-size: 15px;
 }
+
+
