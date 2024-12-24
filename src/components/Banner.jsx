@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
@@ -54,6 +55,21 @@ export const Banner = () => {
     }
   };
 
+  // Functionality for scrolling the about section when the button is clicked
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      const offset =
+        aboutSection.offsetTop -
+        window.innerHeight / 2 +
+        aboutSection.offsetHeight / 2;
+      window.scrollTo({
+        top: offset,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="banner" id="home">
       <Container>
@@ -92,10 +108,7 @@ export const Banner = () => {
               Computer Science & Finance <span className="purple">@</span>{" "}
               University of Waterloo
             </p>
-            <button
-              className="button"
-              onClick={() => navigate("./components/Contact.jsx")}
-            >
+            <button className="button" onClick={scrollToAbout}>
               About Me <ArrowRightCircle style={{ color: "white" }} size={25} />
             </button>
           </Col>

@@ -22,8 +22,24 @@ export const NavBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const onUpdateActiveLink = (value) => {
-    setActiveLink(value);
+  const scrollToSection = (id) => {
+    const targetSection = document.getElementById(id);
+    if (targetSection) {
+      const offset =
+        id === "projects"
+          ? targetSection.offsetTop // Scrolls to the top for "projects"
+          : targetSection.offsetTop -
+            window.innerHeight / 2 +
+            targetSection.offsetHeight / 2; // Centers for other sections
+      targetSection.offsetTop -
+        window.innerHeight / 2 +
+        targetSection.offsetHeight / 2;
+      window.scrollTo({
+        top: offset,
+        behavior: "smooth",
+      });
+      setActiveLink(id);
+    }
   };
   return (
     <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
@@ -35,28 +51,28 @@ export const NavBar = () => {
           <Nav className="me-auto">
             <Nav.Link
               href="#home"
+              onClick={() => scrollToSection("home")}
               className={
-                activeLink == "home" ? "active navbar-link" : "navbar-link"
+                activeLink === "home" ? "active navbar-link" : "navbar-link"
               }
-              onClick={() => onUpdateActiveLink("home")}
             >
               Home
             </Nav.Link>
             <Nav.Link
-              href="#skills"
+              href="#about"
+              onClick={() => scrollToSection("about")}
               className={
-                activeLink == "skills" ? "active navbar-link" : "navbar-link"
+                activeLink === "about" ? "active navbar-link" : "navbar-link"
               }
-              onClick={() => onUpdateActiveLink("skills")}
             >
               About
             </Nav.Link>
             <Nav.Link
               href="#projects"
+              onClick={() => scrollToSection("projects")}
               className={
-                activeLink == "projects" ? "active navbar-link" : "navbar-link"
+                activeLink === "projects" ? "active navbar-link" : "navbar-link"
               }
-              onClick={() => onUpdateActiveLink("projects")}
             >
               Projects{" "}
             </Nav.Link>
