@@ -66,7 +66,10 @@ export const Banner = () => {
           }}
         >
           <Col xs={12} md={6} xl={7}>
-            <div style={{ minHeight: "5px", margin: 15 }} className="tagline">
+            <div
+              style={{ minHeight: "5px", marginBottom: 25 }}
+              className="tagline"
+            >
               <span>{text}</span>
               {text === "" && (
                 <span style={{ visibility: "hidden" }}>&nbsp;</span>
@@ -85,7 +88,7 @@ export const Banner = () => {
                 </div>
               )}
             </TrackVisibility>
-            <p style={{ marginTop: 15 }}>
+            <p style={{ marginTop: 20 }}>
               Computer Science & Finance <span className="purple">@</span>{" "}
               University of Waterloo
             </p>

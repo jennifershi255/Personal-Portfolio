@@ -75,7 +75,6 @@ input:focus, textarea:focus, select:focus {
 
 .purple {
   color: #b7bbff
-
 }
 
 @media (min-width:1700px) {
@@ -255,7 +254,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /** Name in banner css **/
 .banner .namecard {
-  margin: 0 auto;  /* Space between .namecard and elements below */
+  margin: 0 auto; 
   padding:20px;
   border-radius: 20px;
   text-align: center;
@@ -334,11 +333,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;      /* Adds spacing inside the button */
+  padding: 10px 20px;      
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0;               /* Removes any default margin that may affect centering */
+  margin: 0;              
 }
 
 .banner button svg {
@@ -407,5 +406,139 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 40%;
   z-index: -4;
 }
+
+/************ Projects Css ************/
+.project {
+  padding: 50px 0;
+  position: relative;
+  background-color: #02091c;
+}
+
+.project h2 {
+	font-size: 50px;
+	font-weight: 700;
+  text-align: center;
+}
+.project p {
+  font-size: 18px;
+  font-weight: 300;
+  width: 100%;
+  margin-left: 10px;
+}
+.project .card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.project .proj-card{
+  width: 350;
+  background-color:  #02091c;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 10px;
+  height: 580px;
+  flex-direction: column;
+  position: relative;
+}
+
+.project .proj-card::before{
+  content: '';
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  background: radial-gradient(var(--clr), transparent, transparent);
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  opacity: 0;
+  z-index: 0;
+}
+
+.project .proj-card:hover::before{
+  opacity: 0.4;
+}
+
+.project .proj-card:hover {
+  box-shadow: 0 0 60px rgba(183, 187, 255, 0.6); /* Softer and more subtle glow */
+}
+
+.project .proj-card::after{
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 30px;
+  background: #02091c;
+  z-index: -1;
+}
+
+.project .tech-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  z-index: 1;
+}
+
+.project .tech-images .img-container {
+  width: 40px; /* Fixed container width */
+  height: 40px; /* Fixed container height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin-left: 10px;
+}
+
+.project .tech-images img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.project img{
+  width: 100%;
+  height: 250px;
+
+}
+
+.project .proj-content{
+  padding: 16px;
+}
+
+.project .proj-content h4{
+
+  font-size: 28px;
+  font-weight: 550;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.project .proj-button{
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 15px;
+  display: inline-flex; 
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.project .external-link-icon{
+  width: 16px;    
+  height: 16px;   
+  margin-left: 8px;
+}
+
+
 
 
