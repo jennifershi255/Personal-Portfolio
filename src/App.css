@@ -250,6 +250,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   text-align: center;
   height: 100vh;
   width: 100vw;
+  padding: 0 15px;
 }
 
 /** Name in banner css **/
@@ -365,6 +366,65 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 .txt-rotate > .wrap {
   border-right: 0.08em solid #666;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 767px) {
+  .banner {
+    height: auto;
+    padding: 0 10px;
+  }
+
+  .banner h1 {
+    font-size: 50px;
+  }
+
+  .banner p {
+    font-size: 18px; 
+  }
+
+  .banner .namecard {
+    padding: 15px; 
+    width: 100%;
+  }
+
+  .button {
+    font-size: 16px; 
+    padding: 8px 16px; 
+  }
+
+  .banner .tagline {
+    font-size: 16px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .banner h1 {
+    font-size: 40px; 
+  }
+
+  .banner p {
+    font-size: 16px; 
+  }
+
+  .banner .namecard {
+    padding: 10px; 
+  }
+
+  .button {
+    font-size: 14px; 
+    padding: 6px 12px; 
+  }
+}
+
+@media (max-width: 1200px) {
+  .banner h1 {
+    font-size: 70px; 
+  }
+
+  .banner p {
+    font-size: 22px;
+  }
 }
 
 /************ About Css ************/
