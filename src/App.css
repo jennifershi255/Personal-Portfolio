@@ -241,6 +241,30 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-color: transparent;
 }
 
+/* Mobile and Tablet Media Queries */
+@media (max-width: 767px) {
+  .navbar .navbar-link {
+    font-size: 16px; /* Smaller font size on mobile */
+    padding: 8px 12px;
+  }
+
+  .navbar .social-icon {
+    gap: 10px; /* Reduce gap between social icons */
+  }
+
+  .navbar .social-icon img {
+    width: 20px; /* Smaller icons on mobile */
+    height: 20px;
+  }
+}
+
+/* Desktop Media Queries */
+@media (min-width: 768px) {
+  .navbar .navbar-link {
+    font-size: 18px; /* Larger font size on desktop */
+  }
+}
+
 /************ Banner Css ************/
 
 .banner {
@@ -373,6 +397,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   .banner {
     height: auto;
     padding: 0 10px;
+    justify-content: center;
+    align-items: center;
   }
 
   .banner h1 {
