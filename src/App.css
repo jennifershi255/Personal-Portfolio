@@ -278,8 +278,10 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .banner .banner-content {
-  max-width: 1200px; /* Ensures content does not overflow */
-  width: 100%; /* Ensure it takes full width on smaller screens */
+  max-width: 1200px;  
+  width: 100%; 
+  padding: 0 15px;  
+  box-sizing: border-box;
 }
 
 /** Name in banner css **/
@@ -404,7 +406,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     padding: 0 20px;
     width: 100%;
     text-align: center;
+    justify-content: center;
+    align-items: center;
   }
+
+
 
   /* Navbar Link Styling */
   .navbar .navbar-link {
@@ -459,6 +465,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   align-items: center;  
   justify-content: center;  
   width: 100%; 
+  flex-wrap: wrap;
 }
 
 .about .container img {
@@ -467,6 +474,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-radius: 50%;  
   box-shadow: 0 0 30px rgba(163, 177, 250, 0.9);
   object-fit: cover; 
+  margin-bottom: 20px;
 }
 
 .about .container p {
@@ -475,6 +483,35 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-left: 50px;  
   flex: 1;  
   max-width: 50%;  
+  word-wrap: break-word;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  /* Heading font size adjustment for smaller screens */
+  .about h2 {
+    font-size: 36px;
+  }
+
+  /* Adjust container layout for mobile */
+  .about .container {
+    flex-direction: column; /* Stack image and text vertically */
+    text-align: center; /* Center text */
+  }
+
+  /* Adjust image size on mobile */
+  .about .container img {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Adjust paragraph size and margin */
+  .about .container p {
+    font-size: 16px;
+    margin-left: 0;
+    max-width: 90%; /* Make text block more responsive */
+    margin-top: 20px; /* Add some space above text */
+  }
 }
 
 /************ Projects Css ************/
@@ -622,6 +659,59 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: 16px;   
   margin-left: 8px;
 }
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  /* Project Heading font size adjustment for mobile */
+  .project h2 {
+    font-size: 36px;
+  }
+
+  /* Project Cards Layout */
+  .project .card-container {
+    justify-content: center;
+    flex-direction: column; /* Stack cards vertically on mobile */
+  }
+
+  /* Adjust Project Card for Mobile */
+  .project .proj-card {
+    width: 90%;  /* Make the cards smaller and responsive */
+    margin-left: 0;
+    margin-right: 0;
+    height: auto;  /* Let the card height adjust based on content */
+  }
+
+  /* Tech Images Layout */
+  .project .tech-images {
+    justify-content: center; /* Center tech stack images */
+    margin-top: 10px;
+  }
+
+  /* Adjust Project Card Image Size */
+  .project img {
+    height: 200px;  /* Reduce image size on mobile */
+  }
+
+  /* Adjust Project Card Content */
+  .project .proj-content h4 {
+    font-size: 24px;
+  }
+
+  /* Adjust Paragraphs inside Project Cards */
+  .project p {
+    font-size: 16px;
+  }
+
+  /* Project Button at the bottom */
+  .project .proj-button {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 15px;
+  }
+}
+
+
 /************ Connect Css ************/
 
 .connect {
