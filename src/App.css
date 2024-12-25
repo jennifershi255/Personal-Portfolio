@@ -335,6 +335,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   letter-spacing: 5 px;
   font-size: 20px;
   display: inline-block;
+  z-index: 0;
 }
 
 .banner h1 {
