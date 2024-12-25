@@ -277,6 +277,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 0 15px;
 }
 
+.banner .banner-content {
+  max-width: 1200px; /* Ensures content does not overflow */
+  width: 100%; /* Ensure it takes full width on smaller screens */
+}
+
 /** Name in banner css **/
 .banner .namecard {
   margin: 0 auto; 
@@ -392,64 +397,29 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-right: 0.08em solid #666;
 }
 
-/* Media Queries for responsiveness */
+/* Mobile and Tablet Media Queries */
 @media (max-width: 767px) {
-  .banner {
-    height: auto;
-    padding: 0 10px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .banner h1 {
-    font-size: 50px;
-  }
-
-  .banner p {
-    font-size: 18px; 
-  }
-
-  .banner .namecard {
-    padding: 15px; 
+  /* Banner Styling */
+  .banner .banner-content {
+    padding: 0 20px;
     width: 100%;
+    text-align: center;
   }
 
-  .button {
-    font-size: 16px; 
-    padding: 8px 16px; 
+  /* Navbar Link Styling */
+  .navbar .navbar-link {
+    font-size: 16px; /* Smaller font size on mobile */
+    padding: 8px 12px;
   }
 
-  .banner .tagline {
-    font-size: 16px; 
-  }
-}
-
-@media (max-width: 480px) {
-  .banner h1 {
-    font-size: 40px; 
+  /* Navbar Social Icon Styling */
+  .navbar .social-icon {
+    gap: 10px; /* Reduce gap between social icons */
   }
 
-  .banner p {
-    font-size: 16px; 
-  }
-
-  .banner .namecard {
-    padding: 10px; 
-  }
-
-  .button {
-    font-size: 14px; 
-    padding: 6px 12px; 
-  }
-}
-
-@media (max-width: 1200px) {
-  .banner h1 {
-    font-size: 70px; 
-  }
-
-  .banner p {
-    font-size: 22px;
+  .navbar .social-icon img {
+    width: 20px; /* Smaller icons on mobile */
+    height: 20px;
   }
 }
 
