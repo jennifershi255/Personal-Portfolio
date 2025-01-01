@@ -10,11 +10,7 @@ export const Banner = () => {
   const [text, setText] = useState("");
   const [delta, setDelta] = useState(50);
   const [index, setIndex] = useState(1);
-  const toRotate = [
-    "Hello, my name is...",
-    "你好，我的名字是...",
-    "Bonjour, je m'appelle...",
-  ];
+  const toRotate = ["Hello, my name is...", "Bonjour, je m'appelle..."];
   const period = 2000;
 
   useEffect(() => {
