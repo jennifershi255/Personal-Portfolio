@@ -17,9 +17,21 @@ import Cohere from "../assets/img/cohere.png";
 import javascript from "../assets/img/JavaScript-logo.png";
 import java from "../assets/img/java.svg";
 import figma from "../assets/img/Figma-logo.svg";
+import MLMHockey from "../assets/img/MLM.png";
+import scikit from "../assets/img/scikit.png";
 
 export const Projects = () => {
   const projects = [
+    {
+      title: "Hockey Goal MLM",
+      description:
+        "Machine Learning Model to predict goals in hockey based on shot distance, angle, and type.",
+      imgUrl: MLMHockey,
+      techImg1: JupyterLogo,
+      techImg2: PythonLogo,
+      techImg3: scikit,
+      link: "https://github.com/jennifershi255/Hockey-Goal-MLM",
+    },
     {
       title: "MarketMatch",
       description:
