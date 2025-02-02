@@ -891,3 +891,75 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: grey;
   font-size: 15px;
 }
+
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  body {
+    font-size: 16px; /* Adjust default font size */
+  }
+
+  .banner h1 {
+    font-size: 40px; /* Adjust banner text size */
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .button {
+    font-size: 18px; /* Increase button font size for better legibility */
+    padding: 12px 25px; /* Adjust padding for a better click area */
+  }
+
+  /* Ensure spacing on navbar */
+  .navbar .navbar-link {
+    font-size: 16px; /* Slightly smaller font size on mobile */
+    padding: 10px 15px; /* Adjust padding */
+  }
+
+  .about h2 {
+    font-size: 36px; /* Smaller heading size */
+  }
+
+  .about .container p {
+    font-size: 16px; /* Adjust text size */
+    margin-left: 0;
+    max-width: 90%; /* Allow more space for text on small screens */
+    margin-top: 20px;
+  }
+
+  .about .container img {
+    width: 250px; /* Adjust image size */
+    height: 250px;
+  }
+}
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  .about .container {
+    flex-direction: column; /* Stack text and image vertically */
+    text-align: center; /* Center text */
+  }
+
+  /* Adjust image size and spacing */
+  .banner .banner-content {
+    padding: 0 20px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Navbar mobile tweaks */
+  .navbar .social-icon {
+    gap: 10px; /* Reduce space between social icons */
+  }
+  .navbar .social-icon img {
+    width: 20px; /* Smaller icons on mobile */
+    height: 20px;
+  }
+}
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  .button {
+    font-size: 18px;
+    padding: 12px 25px; /* Bigger tap area */
+  }
+}
