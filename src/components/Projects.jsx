@@ -102,7 +102,7 @@ export const Projects = () => {
       <Container>
         <Row>
           <Col size={12}>
-            <h2 className="purple">Projects</h2>
+            <h2>Projects</h2>
             <Row>
               {projects.map((project, index) => {
                 return <ProjectCard key={index} {...project} />;

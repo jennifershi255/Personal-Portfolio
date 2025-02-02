@@ -42,11 +42,12 @@ body {
  
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
   line-height: normal;
 }
+
 
 p, a, li, button, ul {
   margin: 0;
@@ -721,11 +722,110 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 
+/************ Notes Css ************/
+
+.notes {
+  position: relative;
+  text-align: center;
+}
+
+.notes h2{
+  font-weight: 700;
+  font-size: 50px;
+	font-weight: 700;
+  text-align: center;
+  position: relative;
+  color: #b7bbff;
+}
+
+.notes h2::after{
+  content: '';  
+  position: absolute;
+  bottom: -15px;  
+  left: 50%;  
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1.5px; 
+  background: #b7bbff;  
+  box-shadow: 0 0 10px #b7bbff, 0 0 15px #b7bbff, 0 0 20px #6b8cff; 
+}
+
+.notes p{
+  padding-top: 60px;
+  text-align: center;
+  font-size: 1.2rem; 
+  line-height: 1.6; 
+}
+
+.custom-slider .slick-slide {
+  min-height: 500px;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+}
+.custom-slider .slick-track {
+  display: flex;
+  align-items: center;
+  height: auto !important;
+}
+
+@media (max-width: 768px) {
+  .custom-slider .slick-prev {
+    left: -20px;
+  }
+  .custom-slider .slick-next {
+    right: -20px;
+  }
+}
+
+/************ Note Card Css ************/
+
+.notes .note-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.notes .note-card {
+  margin:0 auto;
+  padding: 2em;
+  height: 280px;
+  width: 300px;
+  background: #02091c;
+  border-radius: 10px;
+  position: relative;
+}
+
+.note-card img {
+  width: 150px; 
+  height: auto; 
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.notes .note-card:hover::before{
+  opacity: 0.4;
+}
+
+.notes .note-card:hover {
+  box-shadow: 0 0 60px rgba(183, 187, 255, 0.6); 
+}
+
+.notes .external-link-icon{
+  width: 16px;    
+  height: 16px;   
+  margin-left: 8px;
+}
+
+
+
 
 /************ Connect Css ************/
 
 .connect {
-  padding: 50px;
+  padding-bottom: 50px;
   position: relative;
   text-align: center;
 }
@@ -791,5 +891,3 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: grey;
   font-size: 15px;
 }
-
-
