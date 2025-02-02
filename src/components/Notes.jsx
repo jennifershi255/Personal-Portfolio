@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import blueFolder from "../assets/img/Notes/bluefolder.png";
+import blueFolder from "../assets/img/Notes/blueFolder.png";
 import greenFolder from "../assets/img/Notes/greenFolder.png";
 import pinkFolder from "../assets/img/Notes/pinkFolder.png";
 import orangeFolder from "../assets/img/Notes/orangeFolder.png";
