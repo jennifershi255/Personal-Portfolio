@@ -498,7 +498,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 /* Mobile Adjustments */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   /* Heading font size adjustment for smaller screens */
   .about h2 {
     font-size: 36px;
@@ -894,7 +894,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 
 /* Mobile Adjustments */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   body {
     font-size: 16px; /* Adjust default font size */
   }
@@ -933,7 +933,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 /* Mobile Adjustments */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   .about .container {
     flex-direction: column; /* Stack text and image vertically */
     text-align: center; /* Center text */
@@ -957,7 +957,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 /* Mobile Adjustments */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   .button {
     font-size: 18px;
     padding: 12px 25px; /* Bigger tap area */
