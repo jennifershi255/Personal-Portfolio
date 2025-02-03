@@ -23,7 +23,7 @@ import scikit from "../assets/img/scikit.png";
 export const Projects = () => {
   const projects = [
     {
-      title: "Hockey Goal MLM",
+      title: "Hockey Goal ML Model",
       description:
         "Machine Learning Model to predict goals in hockey based on shot distance, angle, and type.",
       imgUrl: MLMHockey,
