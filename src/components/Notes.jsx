@@ -18,7 +18,7 @@ export const Notes = () => {
       link: "https://drive.google.com/drive/folders/1VlHJoeIQmzK7F7rhpk4I1TdMdWQMvffG?usp=sharing",
     },
     {
-      title: "IB Microeconomics HL Part A",
+      title: "IB Economics HL",
       imgUrl: greenFolder,
       link: "https://worried-reply-92e.notion.site/microeconomics-0168f5436273448db93a5a9324386366",
     },
@@ -28,7 +28,7 @@ export const Notes = () => {
       link: "https://worried-reply-92e.notion.site/physics-e4af5adbf80d4a1e932cc88208a24269",
     },
     {
-      title: "IB Chemistry HL Part A",
+      title: "IB Chemistry HL",
       imgUrl: orangeFolder,
       link: "https://worried-reply-92e.notion.site/chemistry-d8621385f2a34abfa67b106edf30b955",
     },
@@ -69,12 +69,7 @@ export const Notes = () => {
               <strong className="purple">make the most</strong> out of these
               resources.
             </p>
-            <Slider
-              {...settings}
-              prevArrow={<div className="custom-prev-arrow" />}
-              nextArrow={<div className="custom-next-arrow" />}
-              className="custom-slider"
-            >
+            <Slider {...settings} className="custom-slider">
               {notes.map((note, index) => {
                 return <NoteCard key={index} {...note} />;
               })}

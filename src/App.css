@@ -17,7 +17,6 @@
 
 /************ Default Css ************/
 
-
 * {
   margin: 0;
   padding: 0;
@@ -78,12 +77,6 @@ input:focus, textarea:focus, select:focus {
   color: #b7bbff
 }
 
-@media (min-width:1700px) {
-	main .container {
-		max-width: 100%;
-		padding: 0 150px;
-	}
-}
 
 p.success {
 	color: green;
@@ -242,27 +235,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-color: transparent;
 }
 
-/* Mobile and Tablet Media Queries */
-@media (max-width: 767px) {
-  .navbar .navbar-link {
-    font-size: 16px; /* Smaller font size on mobile */
-    padding: 8px 12px;
+@media (max-width: 425px), (max-width: 375px), (max-width: 320px){
+  body {
+    width: 100vw;
+    min-width: 100%;
+    background-size: cover;
+    background-position: center;
   }
-
-  .navbar .social-icon {
-    gap: 10px; /* Reduce gap between social icons */
-  }
-
-  .navbar .social-icon img {
-    width: 20px; /* Smaller icons on mobile */
-    height: 20px;
-  }
-}
-
-/* Desktop Media Queries */
-@media (min-width: 768px) {
-  .navbar .navbar-link {
-    font-size: 18px; /* Larger font size on desktop */
+  
+  html, body {
+    overflow-x: hidden;
   }
 }
 
@@ -273,9 +255,12 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
+  max-width: 100%;
   padding: 0 15px;
+  overflow: hidden;
+
 }
 
 .banner .banner-content {
@@ -401,42 +386,19 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-right: 0.08em solid #666;
 }
 
-/* Mobile and Tablet Media Queries */
-@media (max-width: 767px) {
-  /* Banner Styling */
-  .banner .banner-content {
-    padding: 0 20px;
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+@media (max-width: 320px) {
+  .banner h1 {
+    font-size: 40px; 
   }
-
-  .banner h1{
-    font-size: 40px;
-    color: #b7bbff;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    line-height: 1;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: block;
+  .banner p {
+    font-size: 16px; 
   }
-
-  /* Navbar Link Styling */
-  .navbar .navbar-link {
-    font-size: 16px; /* Smaller font size on mobile */
-    padding: 8px 12px;
+  .banner .namecard {
+    padding: 10px; 
   }
-
-  /* Navbar Social Icon Styling */
-  .navbar .social-icon {
-    gap: 10px; /* Reduce gap between social icons */
-  }
-
-  .navbar .social-icon img {
-    width: 20px; /* Smaller icons on mobile */
-    height: 20px;
+  .button {
+    font-size: 14px; 
+    padding: 6px 12px; 
   }
 }
 
@@ -498,29 +460,38 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 /* Mobile Adjustments */
-@media (max-width: 480px) {
+@media (max-width: 425px), (max-width: 375px), (max-width: 320px) {
   /* Heading font size adjustment for smaller screens */
   .about h2 {
     font-size: 36px;
   }
-
   /* Adjust container layout for mobile */
   .about .container {
     flex-direction: column; /* Stack image and text vertically */
     text-align: center; /* Center text */
   }
-
+   .about h2::after {
+    content: '';  
+    position: absolute;
+    bottom: -8px;  
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;  /* Set a fixed width for the line */
+    height: 1px; /* Thicker line */
+    background: #b7bbff;  
+    box-shadow: 0 0 8px #b7bbff, 0 0 12px #b7bbff, 0 0 16px #6b8cff;
+ }
   /* Adjust image size on mobile */
   .about .container img {
     width: 200px;
     height: 200px;
   }
-
   /* Adjust paragraph size and margin */
   .about .container p {
+    text-align: center;
     font-size: 16px;
     margin-left: 0;
-    max-width: 90%; /* Make text block more responsive */
+    max-width: 250px; /* Make text block more responsive */
     margin-top: 20px; /* Add some space above text */
   }
 }
@@ -537,6 +508,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 	font-weight: 700;
   text-align: center;
   position: relative;
+  color: #b7bbff;
 }
 
 .project h2::after {
@@ -672,55 +644,89 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 /* Mobile Adjustments */
-@media (max-width: 767px) {
-  /* Project Heading font size adjustment for mobile */
+@media (max-width: 325px),(max-width: 375px),(max-width: 425px) {
+  /* Project Section Padding */
+  .project {
+    padding: 20px 0; /* Reduced padding for smaller screens */
+  }
+
+  /* Project Heading */
   .project h2 {
-    font-size: 36px;
+    font-size: 30px; /* Reduce font size */
   }
 
-  /* Project Cards Layout */
-  .project .card-container {
-    justify-content: center;
-    flex-direction: column; /* Stack cards vertically on mobile */
+  .project h2::after {
+    width: 220px; /* Make the line shorter */
+    bottom: -10px; /* Adjust line position */
   }
 
-  /* Adjust Project Card for Mobile */
-  .project .proj-card {
-    width: 90%;  /* Make the cards smaller and responsive */
-    margin-left: 0;
-    margin-right: 0;
-    height: auto;  /* Let the card height adjust based on content */
-  }
-
-  /* Tech Images Layout */
-  .project .tech-images {
-    justify-content: center; /* Center tech stack images */
-    margin-top: 10px;
-  }
-
-  /* Adjust Project Card Image Size */
-  .project img {
-    height: 200px;  /* Reduce image size on mobile */
-  }
-
-  /* Adjust Project Card Content */
-  .project .proj-content h4 {
-    font-size: 24px;
-  }
-
-  /* Adjust Paragraphs inside Project Cards */
+  /* Project Description */
   .project p {
-    font-size: 16px;
+    font-size: 14px; /* Adjust font size for smaller screens */
+    margin-left: 5px; /* Adjust left margin */
   }
 
-  /* Project Button at the bottom */
-  .project .proj-button {
+  /* Project Card Container */
+  .project .card-container {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    justify-content: center;
+    overflow-x: auto;
+    align-items: center; /* Center cards */
+    gap: 20px; /* Add some gap between cards */
+    margin-top: 30px; /* Adjust top margin */
+  }
+
+  /* Project Card */
+  .project .proj-card {
+    width: 100%; /* Allow card to take full width */
+    max-width: 250px; /* Limit max width of cards */
+    height: auto; /* Adjust height for smaller screens */
+    margin: 10px 0; /* Add vertical spacing */
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
     position: relative;
-    bottom: auto;
-    right: auto;
-    margin-top: 15px;
+  }
+
+  .project .proj-card img {
+    height: 200px; /* Reduce image height */
+  }
+
+  .project .proj-content {
+    padding: 12px; /* Adjust content padding */
+  }
+
+  .project .proj-content h4 {
+    font-size: 18px; /* Reduce heading font size */
+    margin-top: 10px; /* Adjust margins */
+  }
+
+  /* Button Adjustments */
+  .project .proj-button {
+    font-size: 14px; /* Reduce button font size */
+    padding: 8px 16px; /* Adjust button padding */
+    bottom: -70px; /* Adjust position */
+    right: 50px; /* Adjust position */
+    width: 50px;
+  }
+
+  .project .external-link-icon {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Adjust icon size */
+    margin-left: 5px; /* Adjust icon margin */
+    object-fit: contain;
+  }
+
+  /* Tech Images */
+  .project .tech-images {
+    gap: 8px; /* Reduce gap between images */
+  }
+
+  .project .tech-images .img-container {
+    width: 30px; /* Smaller tech image container */
+    height: 30px; /* Smaller tech image container */
   }
 }
+
 
 /************ Notes Css ************/
 
@@ -755,6 +761,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   text-align: center;
   font-size: 1.2rem; 
   line-height: 1.6; 
+  max-width: 100%;
 }
 
 .custom-slider .slick-slide {
@@ -770,12 +777,37 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: auto !important;
 }
 
-@media (max-width: 768px) {
-  .custom-slider .slick-prev {
-    left: -20px;
+/* Mobile Query for Screen Size Max 325px */
+@media (max-width: 320px), (max-width: 375px), (max-width: 425px) {
+  body {
+    background-color: red; /* Check if the media query is working */
   }
-  .custom-slider .slick-next {
-    right: -20px;
+  .notes h2 {
+    font-size: 30px; /* Smaller font size for mobile */
+  }
+
+  .notes h2::after {
+    width: 220px;; /* Make the line shorter for small screens */
+  }
+
+  .notes p{
+    font-size: 15px;
+    max-width: 280px; /* Limit the width */
+    margin: 0 auto; /* Center the paragraph */
+    line-height: 1.5; /* Optional: Adjust line spacing for readability */
+    word-wrap: break-word; /* Ensure long words break and wrap properly */
+    white-space: normal; /* Allow text to wrap if necessary */
+  }
+
+  .custom-slider .slick-slide {
+    min-height: 300px;  /* Adjust the height for smaller screens */
+    padding-top: 20px;  /* Adjust padding */
+  }
+  /* Adjust padding in the slider for better mobile experience */
+  .custom-slider .slick-track {
+    display: flex;
+    align-items: center;
+    padding: 10px; /* Add some padding around the content */
   }
 }
 
@@ -789,7 +821,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .notes .note-card {
-  margin:0 auto;
+  margin: 0 auto;
   padding: 2em;
   height: 280px;
   width: 300px;
@@ -819,7 +851,44 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-left: 8px;
 }
 
+/* Further adjustments for very small screens */
+@media (max-width: 375px) {
+  .notes .note-card {
+    margin: 0 auto;
+    padding: 2em;
+    height: 200px;
+    width: 200px;
+    background: #02091c;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
 
+  .note-card img {
+    width: 120px;
+  }
+
+  .notes .note-container {
+    justify-content: center;
+  }
+}
+
+/* Additional adjustment for smaller screens */
+@media (max-width: 320px) {
+  .notes .note-card {
+    margin: 0 auto;
+    padding: 1em;
+    height: 250px;
+    width: 240px;
+  }
+
+  .note-card img {
+    width: 100px;
+  }
+}
 
 
 /************ Connect Css ************/
@@ -883,6 +952,30 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
  padding: 20px;
 }
 
+/* Further adjustments for very small screens like mobile phones */
+@media (max-width: 320px), (max-width: 375px) {
+  .connect h2 {
+    font-size: 24px;  /* Further reduce font size on very small screens */
+  }
+
+  .connect h2::after{
+    width: 220px;
+  }
+
+  .connect .box {
+    height: 120px;  /* Even smaller box height */
+    margin-top: 20px; /* Adjust margin for very small screens */
+    max-width: 100%;
+  }
+
+  .connect .box a {
+    font-size: 14px;  /* Even smaller font size for links */
+  }
+
+  .connect .box img {
+    width: 40px;  /* Smaller image size */
+  }
+}
 /************ Footer Css ************/
 
 .footer {
@@ -890,76 +983,4 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   text-align: center;
   color: grey;
   font-size: 15px;
-}
-
-
-/* Mobile Adjustments */
-@media (max-width: 480px) {
-  body {
-    font-size: 16px; /* Adjust default font size */
-  }
-
-  .banner h1 {
-    font-size: 40px; /* Adjust banner text size */
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-
-  .button {
-    font-size: 18px; /* Increase button font size for better legibility */
-    padding: 12px 25px; /* Adjust padding for a better click area */
-  }
-
-  /* Ensure spacing on navbar */
-  .navbar .navbar-link {
-    font-size: 16px; /* Slightly smaller font size on mobile */
-    padding: 10px 15px; /* Adjust padding */
-  }
-
-  .about h2 {
-    font-size: 36px; /* Smaller heading size */
-  }
-
-  .about .container p {
-    font-size: 16px; /* Adjust text size */
-    margin-left: 0;
-    max-width: 90%; /* Allow more space for text on small screens */
-    margin-top: 20px;
-  }
-
-  .about .container img {
-    width: 250px; /* Adjust image size */
-    height: 250px;
-  }
-}
-/* Mobile Adjustments */
-@media (max-width: 480px) {
-  .about .container {
-    flex-direction: column; /* Stack text and image vertically */
-    text-align: center; /* Center text */
-  }
-
-  /* Adjust image size and spacing */
-  .banner .banner-content {
-    padding: 0 20px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Navbar mobile tweaks */
-  .navbar .social-icon {
-    gap: 10px; /* Reduce space between social icons */
-  }
-  .navbar .social-icon img {
-    width: 20px; /* Smaller icons on mobile */
-    height: 20px;
-  }
-}
-/* Mobile Adjustments */
-@media (max-width: 480px) {
-  .button {
-    font-size: 18px;
-    padding: 12px 25px; /* Bigger tap area */
-  }
 }
