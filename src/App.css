@@ -953,7 +953,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 /* Further adjustments for very small screens like mobile phones */
-@media (max-width: 320px), (max-width: 375px) {
+@media (max-width: 320px), (max-width: 375px), (max-width: 420px) {
   .connect h2 {
     font-size: 24px;  /* Further reduce font size on very small screens */
   }
