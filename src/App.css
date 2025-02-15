@@ -246,6 +246,24 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   html, body {
     overflow-x: hidden;
   }
+  nav.navbar .navbar-nav .nav-link.navbar-link {
+    font-size: 15px; /* Adjust for mobile */
+  }
+
+  .social-icon a {
+    width: 30px;
+    height: 30px;
+  }
+
+  .social-icon a::before {
+    width: 30px;
+    height: 30px;
+  }
+
+  .social-icon a img {
+    width: 50%; /* Adjust as needed */
+  }
+
 }
 
 /************ Banner Css ************/
@@ -386,21 +404,73 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-right: 0.08em solid #666;
 }
 
-@media (max-width: 320px) {
-  .banner h1 {
-    font-size: 40px; 
+/* For mobile phones */
+@media screen and (max-width: 480px) {
+  .banner {
+    min-height: 90vh;
+    padding: 0 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px; 
+    margin-bottom: 70px; 
   }
-  .banner p {
-    font-size: 16px; 
+
+  .banner .banner-content {
+    padding: 0 10px;
+    width: 100%;
   }
+
   .banner .namecard {
-    padding: 10px; 
+    padding: 15px;
+    max-width: 100%;
   }
+
+  .banner h1 {
+    font-size: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .banner p {
+    font-size: 17px;
+  }
+
+  .banner .tagline {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
   .button {
-    font-size: 14px; 
-    padding: 6px 12px; 
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+
+  .banner button svg {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+
+  .banner button:hover svg {
+    margin-left: 15px;
+  }
+
+  @keyframes updown {
+    0% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
   }
 }
+
 
 /************ About Css ************/
 
@@ -459,16 +529,15 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   word-wrap: break-word;
 }
 
-/* Mobile Adjustments */
 @media (max-width: 425px), (max-width: 375px), (max-width: 320px) {
-  /* Heading font size adjustment for smaller screens */
+
   .about h2 {
     font-size: 36px;
   }
-  /* Adjust container layout for mobile */
+
   .about .container {
-    flex-direction: column; /* Stack image and text vertically */
-    text-align: center; /* Center text */
+    flex-direction: column; 
+    text-align: center; 
   }
    .about h2::after {
     content: '';  
@@ -476,23 +545,23 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     bottom: -8px;  
     left: 50%;
     transform: translateX(-50%);
-    width: 250px;  /* Set a fixed width for the line */
-    height: 1px; /* Thicker line */
+    width: 250px; 
+    height: 1px; 
     background: #b7bbff;  
     box-shadow: 0 0 8px #b7bbff, 0 0 12px #b7bbff, 0 0 16px #6b8cff;
  }
-  /* Adjust image size on mobile */
+
   .about .container img {
     width: 200px;
     height: 200px;
   }
-  /* Adjust paragraph size and margin */
+
   .about .container p {
     text-align: center;
     font-size: 16px;
     margin-left: 0;
-    max-width: 250px; /* Make text block more responsive */
-    margin-top: 20px; /* Add some space above text */
+    max-width: 250px; 
+    margin-top: 20px;
   }
 }
 
@@ -645,28 +714,24 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /* Mobile Adjustments */
 @media (max-width: 325px),(max-width: 375px),(max-width: 425px) {
-  /* Project Section Padding */
-  .project {
-    padding: 20px 0; /* Reduced padding for smaller screens */
-  }
 
-  /* Project Heading */
+  .project {
+    padding: 20px 0;
+  }
   .project h2 {
-    font-size: 30px; /* Reduce font size */
+    font-size: 40px; 
   }
 
   .project h2::after {
-    width: 220px; /* Make the line shorter */
-    bottom: -10px; /* Adjust line position */
+    width: 220px; 
+    bottom: -10px; 
   }
 
-  /* Project Description */
   .project p {
-    font-size: 14px; /* Adjust font size for smaller screens */
-    margin-left: 5px; /* Adjust left margin */
+    font-size: 14px; 
+    margin-left: 5px;
   }
 
-  /* Project Card Container */
   .project .card-container {
     display: flex;
     flex-direction: column; /* Stack cards vertically */
@@ -677,53 +742,52 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     margin-top: 30px; /* Adjust top margin */
   }
 
-  /* Project Card */
   .project .proj-card {
-    width: 100%; /* Allow card to take full width */
-    max-width: 250px; /* Limit max width of cards */
-    height: auto; /* Adjust height for smaller screens */
-    margin: 10px 0; /* Add vertical spacing */
-    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+    width: 100%; 
+    max-width: 250px; 
+    height: auto; 
+    margin: 10px 0; 
+    box-sizing: border-box; 
     position: relative;
   }
 
   .project .proj-card img {
-    height: 200px; /* Reduce image height */
+    height: 200px;
   }
 
   .project .proj-content {
-    padding: 12px; /* Adjust content padding */
+    padding: 12px; 
   }
 
   .project .proj-content h4 {
-    font-size: 18px; /* Reduce heading font size */
-    margin-top: 10px; /* Adjust margins */
+    font-size: 18px; 
+    margin-top: 10px; 
   }
 
-  /* Button Adjustments */
+ 
   .project .proj-button {
-    font-size: 14px; /* Reduce button font size */
-    padding: 8px 16px; /* Adjust button padding */
-    bottom: -70px; /* Adjust position */
-    right: 50px; /* Adjust position */
+    font-size: 14px; 
+    padding: 8px 16px; 
+    bottom: -70px; 
+    right: 50px; 
     width: 50px;
   }
 
   .project .external-link-icon {
-    width: 20px; /* Adjust icon size */
-    height: 20px; /* Adjust icon size */
-    margin-left: 5px; /* Adjust icon margin */
+    width: 20px; 
+    height: 20px; 
+    margin-left: 5px; 
     object-fit: contain;
   }
 
   /* Tech Images */
   .project .tech-images {
-    gap: 8px; /* Reduce gap between images */
+    gap: 8px; 
   }
 
   .project .tech-images .img-container {
-    width: 30px; /* Smaller tech image container */
-    height: 30px; /* Smaller tech image container */
+    width: 30px; 
+    height: 30px; 
   }
 }
 
@@ -777,38 +841,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: auto !important;
 }
 
-/* Mobile Query for Screen Size Max 325px */
 @media (max-width: 320px), (max-width: 375px), (max-width: 425px) {
-  body {
-    background-color: red; /* Check if the media query is working */
-  }
-  .notes h2 {
-    font-size: 30px; /* Smaller font size for mobile */
+  .notes{
+    display:none;
   }
 
-  .notes h2::after {
-    width: 220px;; /* Make the line shorter for small screens */
-  }
-
-  .notes p{
-    font-size: 15px;
-    max-width: 280px; /* Limit the width */
-    margin: 0 auto; /* Center the paragraph */
-    line-height: 1.5; /* Optional: Adjust line spacing for readability */
-    word-wrap: break-word; /* Ensure long words break and wrap properly */
-    white-space: normal; /* Allow text to wrap if necessary */
-  }
-
-  .custom-slider .slick-slide {
-    min-height: 300px;  /* Adjust the height for smaller screens */
-    padding-top: 20px;  /* Adjust padding */
-  }
-  /* Adjust padding in the slider for better mobile experience */
-  .custom-slider .slick-track {
-    display: flex;
-    align-items: center;
-    padding: 10px; /* Add some padding around the content */
-  }
 }
 
 /************ Note Card Css ************/
@@ -849,45 +886,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   width: 16px;    
   height: 16px;   
   margin-left: 8px;
-}
-
-/* Further adjustments for very small screens */
-@media (max-width: 375px) {
-  .notes .note-card {
-    margin: 0 auto;
-    padding: 2em;
-    height: 200px;
-    width: 200px;
-    background: #02091c;
-    border-radius: 10px;
-    position: relative;
-  }
-  
-  body {
-    overflow-x: hidden;
-  }
-
-  .note-card img {
-    width: 120px;
-  }
-
-  .notes .note-container {
-    justify-content: center;
-  }
-}
-
-/* Additional adjustment for smaller screens */
-@media (max-width: 320px) {
-  .notes .note-card {
-    margin: 0 auto;
-    padding: 1em;
-    height: 250px;
-    width: 240px;
-  }
-
-  .note-card img {
-    width: 100px;
-  }
 }
 
 
@@ -952,10 +950,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
  padding: 20px;
 }
 
-/* Further adjustments for very small screens like mobile phones */
 @media (max-width: 320px), (max-width: 375px), (max-width: 420px) {
   .connect h2 {
-    font-size: 24px;  /* Further reduce font size on very small screens */
+    font-size: 35px;  
   }
 
   .connect h2::after{
@@ -963,17 +960,17 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 
   .connect .box {
-    height: 120px;  /* Even smaller box height */
-    margin-top: 20px; /* Adjust margin for very small screens */
+    height: 120px;  
+    margin-top: 20px; 
     max-width: 100%;
   }
 
   .connect .box a {
-    font-size: 14px;  /* Even smaller font size for links */
+    font-size: 14px;  
   }
 
   .connect .box img {
-    width: 40px;  /* Smaller image size */
+    width: 40px;  
   }
 }
 /************ Footer Css ************/
