@@ -604,6 +604,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   flex-wrap: wrap;
   margin-top: 50px;
   margin-bottom: 30px;
+  margin-right: 10px;
 }
 
 .project .proj-card{

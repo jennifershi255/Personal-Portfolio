@@ -19,13 +19,39 @@ import java from "../assets/img/java.svg";
 import figma from "../assets/img/Figma-logo.svg";
 import MLMHockey from "../assets/img/MLM.png";
 import scikit from "../assets/img/scikit.png";
+import html from "../assets/img/html.png";
+import mindyourstep from "../assets/img/mindyourstep.png";
 
 export const Projects = () => {
   const projects = [
     {
+      title: "Mind Your Step",
+      description: (
+        <>
+          An interactive game designed to tackle critical challenges in early
+          learning. <br /> <br />{" "}
+          <strong style={{ fontWeight: "bold" }}>
+            "MindYourStep: Empowering Young Minds, One Step at a Time!"
+          </strong>{" "}
+          <br /> <br />{" "}
+        </>
+      ),
+      imgUrl: mindyourstep,
+      techImg1: html,
+      techImg2: javascript,
+      techImg3: figma,
+      link: "https://www.youtube.com/watch?v=_9TFfhiwJGw",
+    },
+    {
       title: "Hockey Goal ML Model",
-      description:
-        "Machine Learning Model to predict goals in hockey based on shot distance, angle, and type.",
+      description: (
+        <>
+          Machine Learning Model to predict goals in hockey based on shot
+          distance, angle, and type, analyzing over 120,000+ points of shot
+          data.
+          <br /> <br />
+        </>
+      ),
       imgUrl: MLMHockey,
       techImg1: JupyterLogo,
       techImg2: PythonLogo,
