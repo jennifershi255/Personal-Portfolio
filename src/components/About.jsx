@@ -17,10 +17,13 @@ export const About = () => {
           Hi! I'm Jennifer Shi, a{" "}
           <strong className="purple">Computing and Financial Management</strong>{" "}
           student at the
-          <strong className="purple"> University of Waterloo</strong>, who is
-          passionate about the intersection of{" "}
-          <strong className="purple">technology</strong> and{" "}
-          <strong className="purple">finance.</strong> <br />
+          <strong className="purple"> University of Waterloo</strong>, driven to{" "}
+          <strong className="purple">innovate and create solutions </strong>{" "}
+          that make a
+          <strong className="purple">
+            {" "}
+            tangible difference. <br />
+          </strong>{" "}
           <br /> My hobbies include swimming, dance,{" "}
           <strong className="purple">playing instruments</strong>, reading, and
           baking. Some fun facts about me are that I was a former national-level{" "}
