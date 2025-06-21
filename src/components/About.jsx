@@ -1,15 +1,25 @@
 import TrackVisibility from "react-on-screen";
 import picture from "../assets/img/headshot.jpg";
+import car from "../assets/img/car.jpg";
+import switcharoo from "../assets/img/switcharoo.png";
 
 export const About = () => {
   return (
     <div id="about" className="about">
-      <h2>About Me</h2>
+      <h2 className="section-heading">About Me</h2>
       <div className="container">
         <TrackVisibility>
           {({ isVisible }) => (
             <div className={isVisible ? "animate__animated animate__flip" : ""}>
-              <img src={picture} alt="image" />
+              <div className="img-wrapper">
+                <img src={picture} alt="image" />
+                <img src={car} alt="funny-image" className="carousel-img" />
+                <img
+                  src={switcharoo}
+                  alt="funny-image"
+                  className="carousel-img"
+                />
+              </div>
             </div>
           )}
         </TrackVisibility>

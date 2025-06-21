@@ -1,4 +1,4 @@
-import "./App.css";
+import "./css/App.css";
 import { NavBar } from "./components/NavBar";
 import { Banner } from "./components/Banner";
 import { About } from "./components/About";
@@ -16,7 +16,9 @@ function App() {
       <NavBar />
       <Banner />
       <About />
-      <Projects />
+      <div className="section-padding">
+        <Projects />
+      </div>
       <Notes />
       <Connect />
       <Footer />

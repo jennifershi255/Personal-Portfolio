@@ -57,7 +57,7 @@ export const Notes = () => {
       <Container>
         <Row>
           <Col size={12}>
-            <h2>Notes Bank</h2>
+            <h2 className="section-heading">Notes Bank</h2>
             <p>
               Check out my <strong className="purple">previous notes</strong>!
               From <strong className="purple">IB courses</strong> to high school

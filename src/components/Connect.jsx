@@ -6,7 +6,7 @@ import navIcon4 from "../assets/img/nav-icon4.svg";
 export const Connect = () => {
   return (
     <div id="connect" className="connect">
-      <h2>Let's Connect!</h2>
+      <h2 className="section-heading">Let's Connect!</h2>
       <Container>
         <Row>
           <Col xs={12} md={4}>
