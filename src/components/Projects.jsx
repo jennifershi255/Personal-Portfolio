@@ -7,7 +7,7 @@ import switcharoo from "../assets/img/switcharoo.png";
 import recipes from "../assets/img/recipes.png";
 import gameoflife from "../assets/img/gameoflife.png";
 import coinCubby from "../assets/img/COIN CUBBY.png";
-import moneymetrics from "../assets/img/moneyMetrics.png";
+import moneymetrics from "../assets/img/moneymetrics.png";
 import JupyterLogo from "../assets/img/Jupyter_logo.svg.png";
 import PythonLogo from "../assets/img/Python-logo-notext.svg.png";
 import PandasLogo from "../assets/img/pandaslogo.png";
