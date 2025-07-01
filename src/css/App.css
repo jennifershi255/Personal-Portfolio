@@ -802,6 +802,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   .about .container img {
     width: 200px;
     height: 200px;
+    border-radius: 50% !important;
+    object-fit: cover !important;
   }
 
   .about .container p {
@@ -810,6 +812,21 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     margin-left: 0;
     max-width: 250px; 
     margin-top: 20px;
+  }
+
+  .about .img-wrapper {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    margin: 0 auto 20px auto !important;
+  }
+
+  .about .carousel-img {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
   }
 
   .notes{
@@ -974,8 +991,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   }
 }
 
-/* Extra Small Mobile - 320px PERFECT CENTERING */
-@media screen and (max-width: 380px) {
+/* Additional specificity for any img inside about section */
+.about img {
+  width: 200px !important;
+  height: 200px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+/* Additional media query for 500px and below */
+@media screen and (max-width: 500px) {
   /* NAVBAR - Ensure it's always visible */
   nav.navbar {
     position: fixed !important;
@@ -997,36 +1022,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
   html {
     overflow-x: hidden !important;
-  }
-
-
-  /* ABOUT SECTION - Perfect circle images */
-  .about .img-wrapper {
-    width: 200px !important;
-    height: 200px !important;
-    border-radius: 50% !important;
-    overflow: hidden !important;
-    margin: 0 auto 20px auto !important;
-  }
-
-  .about .carousel-img {
-    width: 200px !important;
-    height: 200px !important;
-    object-fit: cover !important;
-    border-radius: 50% !important;
-  }
-
-  .about .container {
-    flex-direction: column !important;
-    text-align: center !important;
-    align-items: center !important;
-  }
-
-  .about .container img {
-    width: 200px !important;
-    height: 200px !important;
-    border-radius: 50% !important;
-    object-fit: cover !important;
   }
 
   /* TRAVEL SECTION */
@@ -1061,10 +1056,116 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     max-width: 100px !important;
     height: auto !important;
   }
+
+  /* Mobile phones - Banner specific */
+  .banner {
+    min-height: 80vh;
+    min-width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px; 
+    margin-bottom: 70px; 
+  }
+
+  .banner .banner-content {
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .banner .namecard {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .banner h1 {
+    font-size: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .banner p {
+    font-size: 17px;
+  }
+
+  .banner .tagline {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+
+  .banner button svg {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+
+  .banner button:hover svg {
+    margin-left: 15px;
+  }
+
+  @keyframes updown {
+    0% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+  }
 }
 
-/* Mobile phones - Banner specific */
-@media screen and (max-width: 375px) {
+/* DEFINITIVE FIX for 425px About Me Circle Image */
+@media screen and (max-width: 425px) {
+  /* About Me Image - Force Perfect Circle */
+  .about .img-wrapper {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    margin: 0 auto 20px auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .about .img-wrapper img {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+  }
+
+  .about .container img {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+  }
+
+  .about img {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+  }
+
+  .about .container {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  /* Banner styling for this breakpoint */
   .banner {
     min-height: 80vh;
     min-width: 100%;
