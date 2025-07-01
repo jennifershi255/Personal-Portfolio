@@ -414,11 +414,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-bottom: 100px;
 }
 
-.about h2 {
-  /* Using section-heading class instead */
-}
-
-/** creating a line underneath - using ::after from section-heading **/
 .about h2::after {
   bottom: -10px;  
   width: 40%;
@@ -485,19 +480,35 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 /************ Projects Css ************/
-.project {
-  /* Using section-padding utility class */
-}
-
-.project h2 {
-  /* Using section-heading utility class */
-}
 
 .project p {
   font-size: 18px;
   font-weight: 300;
   width: 100%;
   margin-left: 10px;
+}
+
+/* Add this CSS to disable the SplashCursor when hovering over the project card */
+.project .proj-card:hover {
+  cursor: pointer !important; /* Override splash cursor with normal pointer */
+  box-shadow: 0 0 60px rgba(183, 187, 255, 0.6) !important; /* Purple glow hover effect */
+  transform: translateY(-5px); /* Slight lift effect */
+}
+
+/* Disable splash cursor specifically for project cards and their children */
+.project .proj-card,
+.project .proj-card *,
+.project .proj-card img,
+.project .proj-card h4,
+.project .proj-card p,
+.project .proj-content,
+.project .tech-images {
+  cursor: pointer !important;
+}
+
+/* Override any splash cursor effects on project cards */
+.project .proj-card:not(.no-cursor):hover {
+  cursor: pointer !important;
 }
 
 .project .card-container {
@@ -510,7 +521,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .project .proj-card{
-  width: 350px;
+  width: 400px;
   background-color: #02091c;
   border-radius: 8px;
   overflow: hidden;
@@ -519,6 +530,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   height: 580px;
   flex-direction: column;
   position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .project .proj-card::before{
@@ -536,10 +549,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .project .proj-card:hover::before{
   opacity: 0.4;
-}
-
-.project .proj-card:hover {
-  box-shadow: 0 0 60px rgba(183, 187, 255, 0.6); 
 }
 
 .project .proj-card::after{
@@ -607,16 +616,28 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   text-underline-offset: 4px;
 }
 
+/************ Travel Css ************/
+
+.travel {
+  padding-bottom: 50px;
+  position: relative;
+  text-align: center;
+}
+
+.travel p{
+  padding-top: 10px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 1.2rem; 
+  line-height: 1.6; 
+  max-width: 100%;
+}
 
 /************ Notes Css ************/
 
 .notes {
   position: relative;
   text-align: center;
-}
-
-.notes h2{
-  /* Using section-heading utility class */
 }
 
 .notes p{
@@ -682,9 +703,6 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   text-align: center;
 }
 
-.connect h2{
-  /* Using section-heading utility class */
-}
 
 .connect .box {
   display: flex;
@@ -726,18 +744,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-size: 15px;
 }
 
-/************ Travel Css ************/
-
-.travel {
-  padding-bottom: 50px;
-  position: relative;
-  text-align: center;
-}
-
-.travel h2 {
-  font-size: 35px;  
-}
-
+/************ Media Queries ************/
 /************ Media Queries ************/
 
 /* Mobile - Small Devices */
@@ -823,35 +830,33 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     width: 40px;  
   }
 }
-
 /* Mobile phones - Banner specific */
 @media screen and (max-width: 480px) {
   .banner {
-    min-height: 90vh;
-    padding: 0 10px;
+    min-height: 90vh; /* Ensure banner takes up most of the screen */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
     text-align: center;
-    padding-top: 70px; 
-    margin-bottom: 70px; 
+    padding: 0 10px; /* Small padding on left and right */
+    margin: 0; /* Remove any extra margin */
   }
 
   .banner .banner-content {
-    padding: 0 10px;
     width: 100%;
+    max-width: 400px; /* Set a max width to prevent overflowing on small screens */
+    padding: 0 10px; /* Small padding on left and right */
   }
 
   .banner .namecard {
     padding: 15px;
-    max-width: 100%;
+    max-width: 100%; /* Ensure namecard takes up full width */
   }
 
   .banner h1 {
     font-size: 40px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0; /* Simplify margins */
   }
 
   .banner p {
@@ -968,3 +973,160 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     height: 30px; 
   }
 }
+
+/* Extra Small Mobile - 320px PERFECT CENTERING */
+@media screen and (max-width: 380px) {
+  /* NAVBAR - Ensure it's always visible */
+  nav.navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    background-color: rgba(18, 18, 18, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  /* BODY - Full control */
+  body {
+    width: 100vw !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  html {
+    overflow-x: hidden !important;
+  }
+
+
+  /* ABOUT SECTION - Perfect circle images */
+  .about .img-wrapper {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    margin: 0 auto 20px auto !important;
+  }
+
+  .about .carousel-img {
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+  }
+
+  .about .container {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .about .container img {
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+  }
+
+  /* TRAVEL SECTION */
+  .travel {
+    padding: 30px 15px !important;
+    text-align: center !important;
+  }
+
+  .travel h2 {
+    font-size: 32px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .travel p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    max-width: 280px !important;
+    margin: 0 auto 20px auto !important;
+    padding: 0 10px !important;
+  }
+
+  .travel .card-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin-top: 20px !important;
+  }
+
+  .travel .card-container > div {
+    width: 50% !important;
+    max-width: 100px !important;
+    height: auto !important;
+  }
+}
+
+/* Mobile phones - Banner specific */
+@media screen and (max-width: 375px) {
+  .banner {
+    min-height: 80vh;
+    min-width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 70px; 
+    margin-bottom: 70px; 
+  }
+
+  .banner .banner-content {
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .banner .namecard {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .banner h1 {
+    font-size: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .banner p {
+    font-size: 17px;
+  }
+
+  .banner .tagline {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .button {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+
+  .banner button svg {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+
+  .banner button:hover svg {
+    margin-left: 15px;
+  }
+
+  @keyframes updown {
+    0% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+  }
+}
+

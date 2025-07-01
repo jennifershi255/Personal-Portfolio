@@ -77,6 +77,15 @@ export const NavBar = () => {
               Projects
             </Nav.Link>
             <Nav.Link
+              href="#travel"
+              onClick={() => scrollToSection("travel")}
+              className={
+                activeLink === "travel" ? "active navbar-link" : "navbar-link"
+              }
+            >
+              Travel
+            </Nav.Link>
+            <Nav.Link
               href="#notes"
               onClick={() => scrollToSection("notes")}
               className={
