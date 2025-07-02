@@ -97,30 +97,6 @@ export const Projects = () => {
       techImg2: figma,
       link: "https://docs.google.com/presentation/d/1OjK9zTtJaogVXmwkx-phYje-qzC40itYmMNCco0b43I/edit?usp=sharing",
     },
-    {
-      title: "The Sustainable Life",
-      description:
-        "A spinoff of the Game of Life, with a theme of sustainability. Up to 6 players will embark on a journey where each decision impacts the environment.",
-      imgUrl: gameoflife,
-      techImg1: java,
-      link: "https://github.com/jennifershi255/The-Game-of-Life",
-    },
-    {
-      title: "Coin Cubby",
-      description:
-        "A virtual piggybank. Coin Cubby lets you set up multiple savings jars, deposit or withdraw money, track your progress, and watch your money grow.",
-      imgUrl: coinCubby,
-      techImg1: java,
-      link: "https://github.com/jennifershi255/CoinCubby",
-    },
-    {
-      title: "MoneyMetrics",
-      description:
-        "Categorizes your total expenses and revenues, presenting them in dynamic bar graphs. This helps give a comprehensive view of your financial trends.",
-      imgUrl: moneymetrics,
-      techImg1: java,
-      link: "https://github.com/jennifershi255/MoneyMetrics",
-    },
   ];
 
   return (
@@ -129,6 +105,17 @@ export const Projects = () => {
         <Row>
           <Col size={12}>
             <h2 className="section-heading">Projects</h2>
+            <p className="section-description">
+              Some recent projects. See more on my {""}
+              <a
+                href="https://github.com/jennifershi255"
+                className="purple"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <strong>Github!</strong>
+              </a>
+            </p>
             <Row>
               {projects.map((project, index) => {
                 return <ProjectCard key={index} {...project} />;

@@ -43,7 +43,6 @@ const HomePage = () => {
         <Projects />
       </div>
       <Travel />
-      <Notes />
       <Connect />
       <Footer />
     </div>
