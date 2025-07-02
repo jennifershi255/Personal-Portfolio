@@ -455,13 +455,19 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 /************ Projects Css ************/
 
 .project p {
+  font-size: 18px;
+  font-weight: 300;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.project .section-description{
   padding-top: 10px;
   text-align: center;
   font-size: 1.2rem; 
   line-height: 1.6; 
   max-width: 100%;
 }
-
 
 /* Add this CSS to disable the SplashCursor when hovering over the project card */
 .project .proj-card:hover {
