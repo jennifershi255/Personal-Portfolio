@@ -1,6 +1,6 @@
 import TiltedCard from "./TiltedCard";
 import italy from "../assets/img/italy-vlog.png";
-import spain from "../assets/img/spain-vlog.png";
+import newYork from "../assets/img/newYork.png";
 
 export const Travel = () => {
   return (
@@ -30,8 +30,8 @@ export const Travel = () => {
           link="https://youtu.be/tR-0iuq9yCQ?si=9Ym6neh0KDWA_efh"
         />
         <TiltedCard
-          imageSrc={spain}
-          captionText="spain vlog- youtube"
+          imageSrc={newYork}
+          captionText="new york vlog- youtube"
           containerHeight="300px"
           containerWidth="450px"
           imageHeight="300px"
@@ -41,7 +41,7 @@ export const Travel = () => {
           showMobileWarning={false}
           showTooltip={true}
           displayOverlayContent={true}
-          link="https://youtu.be/dQw4w9WgXcQ?si=n-20Ofezd475fwTK"
+          link="https://youtu.be/23AMHv1Rfi0?si=5nJpnSE03vHvIY52"
         />
       </div>
     </div>
