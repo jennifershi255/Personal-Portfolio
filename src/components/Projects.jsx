@@ -1,21 +1,10 @@
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { ProjectCard } from "./ProjectCard";
 import MarketMatch from "../assets/img/MarketMatch.png";
-import procrastiNATION from "../assets/img/procrasti-NATION.png";
-import glide from "../assets/img/glide.png";
-import switcharoo from "../assets/img/switcharoo.png";
-import recipes from "../assets/img/recipes.png";
-import gameoflife from "../assets/img/gameoflife.png";
-import coinCubby from "../assets/img/COIN CUBBY.png";
-import moneymetrics from "../assets/img/moneymetrics.png";
 import JupyterLogo from "../assets/img/Jupyter_logo.svg.png";
 import PythonLogo from "../assets/img/Python-logo-notext.svg.png";
 import PandasLogo from "../assets/img/pandaslogo.png";
-import ReactLogo from "../assets/img/reactlogo.png";
-import MongoDB from "../assets/img/mongodb.png";
-import Cohere from "../assets/img/cohere.png";
 import javascript from "../assets/img/JavaScript-logo.png";
-import java from "../assets/img/java.svg";
 import figma from "../assets/img/Figma-logo.svg";
 import MLMHockey from "../assets/img/MLM.png";
 import scikit from "../assets/img/scikit.png";
@@ -67,35 +56,6 @@ export const Projects = () => {
       techImg2: PythonLogo,
       techImg3: PandasLogo,
       link: "https://github.com/jennifershi255/MarketMatch",
-    },
-    {
-      title: "procrasti-NATION",
-      description:
-        "Your local hub for laziness. Using API integration, prompt engineering, and model training, this website generates custom excuses for your procrastination desires. ",
-      imgUrl: procrastiNATION,
-      techImg1: ReactLogo,
-      techImg2: MongoDB,
-      techImg3: Cohere,
-      link: "https://devpost.com/software/procrasti-nation",
-    },
-    {
-      title: "Recipe Repository",
-      description:
-        "Your personal digital cookbook! This app allows you to store, organize, and access all your favorite recipes in one convenient place, making cooking easier and more enjoyable.",
-      imgUrl: recipes,
-      techImg1: ReactLogo,
-      techImg2: javascript,
-      techImg3: PythonLogo,
-      link: "https://github.com/jennifershi255/recipe-repository-app",
-    },
-    {
-      title: "Switcharoo",
-      description:
-        "Through a house swap network, Switcharoo addresses two critical challenges faced by many in Canada: accessibility of housing and a lack of community connection.",
-      imgUrl: switcharoo,
-      techImg1: glide,
-      techImg2: figma,
-      link: "https://docs.google.com/presentation/d/1OjK9zTtJaogVXmwkx-phYje-qzC40itYmMNCco0b43I/edit?usp=sharing",
     },
   ];
 
