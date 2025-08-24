@@ -1,14 +1,133 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "./components/Footer";
 import { TravelGlobe } from "./components/TravelGlobe";
 
 const TravelPage = () => {
   const navigate = useNavigate();
+  const [isInteracting, setIsInteracting] = useState(false);
 
   const handleGoHome = () => {
     navigate("/");
   };
+
+  // Hide title when interacting with globe
+  useEffect(() => {
+    let interactionTimeout;
+
+    const handleInteractionStart = () => {
+      setIsInteracting(true);
+      clearTimeout(interactionTimeout);
+    };
+
+    const handleInteractionEnd = () => {
+      clearTimeout(interactionTimeout);
+      interactionTimeout = setTimeout(() => {
+        setIsInteracting(false);
+      }, 1500); // Show title again 1.5 seconds after interaction stops
+    };
+
+    const setupEventListeners = () => {
+      // Try multiple selectors to find the canvas
+      const canvas =
+        document.querySelector("canvas") ||
+        document.querySelector(".three-canvas") ||
+        document.querySelector("div[style*='width: 100vw'] canvas");
+
+      if (canvas) {
+        // More comprehensive event listeners
+        const events = [
+          "mousedown",
+          "wheel",
+          "touchstart",
+          "pointerdown",
+          "gesturestart",
+        ];
+
+        const endEvents = [
+          "mouseup",
+          "touchend",
+          "mouseleave",
+          "pointerup",
+          "gestureend",
+        ];
+
+        events.forEach((event) => {
+          canvas.addEventListener(event, handleInteractionStart, {
+            passive: false,
+          });
+        });
+
+        endEvents.forEach((event) => {
+          canvas.addEventListener(event, handleInteractionEnd, {
+            passive: false,
+          });
+        });
+
+        // Also listen on the parent container
+        const parent = canvas.parentElement;
+        if (parent) {
+          events.forEach((event) => {
+            parent.addEventListener(event, handleInteractionStart, {
+              passive: false,
+            });
+          });
+          endEvents.forEach((event) => {
+            parent.addEventListener(event, handleInteractionEnd, {
+              passive: false,
+            });
+          });
+        }
+
+        return { canvas, parent };
+      }
+      return null;
+    };
+
+    // Retry multiple times to catch the canvas
+    let elements = null;
+    let retryCount = 0;
+    const maxRetries = 5;
+
+    const trySetup = () => {
+      elements = setupEventListeners();
+      if (!elements && retryCount < maxRetries) {
+        retryCount++;
+        setTimeout(trySetup, 500 * retryCount); // Increasing delay
+      }
+    };
+
+    trySetup();
+
+    return () => {
+      clearTimeout(interactionTimeout);
+      if (elements) {
+        const events = [
+          "mousedown",
+          "wheel",
+          "touchstart",
+          "pointerdown",
+          "gesturestart",
+          "mouseup",
+          "touchend",
+          "mouseleave",
+          "pointerup",
+          "gestureend",
+        ];
+
+        events.forEach((event) => {
+          if (elements.canvas) {
+            elements.canvas.removeEventListener(event, handleInteractionStart);
+            elements.canvas.removeEventListener(event, handleInteractionEnd);
+          }
+          if (elements.parent) {
+            elements.parent.removeEventListener(event, handleInteractionStart);
+            elements.parent.removeEventListener(event, handleInteractionEnd);
+          }
+        });
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -86,6 +205,9 @@ const TravelPage = () => {
             padding: "0 20px",
             width: "100%",
             maxWidth: "800px",
+            opacity: isInteracting ? 0 : 1,
+            transition: "opacity 0.3s ease-in-out",
+            pointerEvents: isInteracting ? "none" : "auto",
           }}
         >
           <h1
@@ -99,22 +221,22 @@ const TravelPage = () => {
               textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
             }}
           >
-            My Travel Adventures
+            jennifer's globe
           </h1>
-          <p
-            style={{
-              fontSize: "clamp(1rem, 2.5vw, 1.2rem)",
-              margin: "10px 0 0 0",
-              color: "#e0e0e0",
-              textShadow: "1px 1px 2px rgba(0,0,0,0.7)",
-            }}
-          >
-            Explore the world through my lens ✈️
-          </p>
         </div>
 
         {/* 3D Globe Experience */}
-        <TravelGlobe />
+        <div
+          onMouseDown={() => setIsInteracting(true)}
+          onWheel={() => setIsInteracting(true)}
+          onTouchStart={() => setIsInteracting(true)}
+          onMouseUp={() => setTimeout(() => setIsInteracting(false), 1500)}
+          onMouseLeave={() => setTimeout(() => setIsInteracting(false), 1500)}
+          onTouchEnd={() => setTimeout(() => setIsInteracting(false), 1500)}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <TravelGlobe />
+        </div>
       </div>
 
       {/* Footer at bottom */}
