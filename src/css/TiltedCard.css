@@ -6,8 +6,11 @@
   display: flex;
   justify-content: center;  /* Centers the cards horizontally */
   align-items: center;      /* Centers the cards vertically */
-  gap: 60px;                /* Increased space between the cards */
+  gap: clamp(20px, 5vw, 60px); /* Responsive gap between cards */
   flex-wrap: wrap;          /* Allow cards to wrap on smaller screens */
+  padding: 0 15px;          /* Add padding for mobile */
+  width: 100%;              /* Ensure full width */
+  box-sizing: border-box;   /* Include padding in width calculation */
 }
 
 .tilted-card-figure {
@@ -37,12 +40,55 @@
   display: none;
 }
 
+/* Mobile optimizations for TiltedCard */
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 20px;
+  }
+  
+  .tilted-card-figure {
+    max-width: 100%;
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .tilted-card-figure:hover {
+    transform: scale(1.01); /* Reduced scale for mobile */
+    box-shadow: 0 0 100px rgba(183, 187, 255, 0.4);
+  }
+}
+
 @media (max-width: 640px) {
   .tilted-card-mobile-alert {
     display: block;
   }
   .tilted-card-caption {
     display: none;
+  }
+  
+  .card-container {
+    padding: 0 15px;
+    gap: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    padding: 0 10px;
+    gap: 20px;
+  }
+  
+  .tilted-card-figure {
+    width: 100% !important;
+    max-width: 300px !important;
+    height: auto !important;
+  }
+  
+  .tilted-card-figure:hover {
+    transform: scale(1.005); /* Minimal scale for very small screens */
+    box-shadow: 0 0 50px rgba(183, 187, 255, 0.3);
   }
 }
 
