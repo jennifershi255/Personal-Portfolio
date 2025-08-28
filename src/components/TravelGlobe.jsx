@@ -17,7 +17,6 @@ const locations = [
     videoUrl: "https://youtu.be/tR-0iuq9yCQ?si=9Ym6neh0KDWA_efh",
     image: italy,
     emoji: "🇮🇹",
-    highlights: ["Colosseum", "Venice Canals", "Tuscany Hills", "Roman Forum"],
     photos: [
       {
         image: "https://picsum.photos/seed/italy1/1200/800",
@@ -54,12 +53,6 @@ const locations = [
     videoUrl: "https://youtu.be/23AMHv1Rfi0?si=5nJpnSE03vHvIY52",
     image: newYork,
     emoji: "🗽",
-    highlights: [
-      "Times Square",
-      "Central Park",
-      "Brooklyn Bridge",
-      "Broadway Shows",
-    ],
     photos: [
       {
         image: "https://picsum.photos/seed/nyc1/1300/800",
@@ -93,52 +86,15 @@ const locations = [
     lat: 45.5017,
     lng: -73.5673,
     description: "Amazing Montreal adventure in the heart of Quebec!",
-    videoUrl: "https://youtu.be/example-montreal-vlog", // Replace with your actual vlog URL
     image: "https://picsum.photos/seed/montreal-main/1200/800",
     emoji: "🇨🇦",
-    highlights: [
-      "Old Montreal",
-      "Mont-Royal",
-      "Bagels & Poutine",
-      "French Culture",
-    ],
-    photos: [
-      {
-        image: "https://picsum.photos/seed/montreal1/1300/900",
-        text: "Old Montreal Streets",
-      },
-      {
-        image: "https://picsum.photos/seed/montreal2/600/900",
-        text: "Notre-Dame Basilica",
-      },
-      {
-        image: "https://picsum.photos/seed/montreal3/1400/800",
-        text: "Mont-Royal Views",
-      },
-      {
-        image: "https://picsum.photos/seed/montreal4/700/1000",
-        text: "Montreal Bagels",
-      },
-      {
-        image: "https://picsum.photos/seed/montreal5/1200/700",
-        text: "Saint-Laurent Boulevard",
-      },
-      {
-        image: "https://picsum.photos/seed/montreal6/600/800",
-        text: "Quebec Winter",
-      },
-    ],
+    videoUrl: "https://youtu.be/23AMHv1Rfi0?si=5nJpnSE03vHvIY52",
   },
   {
     id: "spain",
     name: "Spain",
     lat: 40.4168,
     lng: -3.7038,
-    description: "Incredible Spanish adventure through vibrant cities!",
-    videoUrl: "https://youtu.be/example-spain-vlog", // Replace with your actual vlog URL
-    image: "https://picsum.photos/seed/spain-main/1200/800",
-    emoji: "🇪🇸",
-    highlights: ["Madrid", "Barcelona", "Flamenco", "Tapas Culture"],
     photos: [
       {
         image: "https://picsum.photos/seed/spain1/1400/900",
@@ -156,15 +112,8 @@ const locations = [
         image: "https://picsum.photos/seed/spain4/700/1000",
         text: "Spanish Tapas",
       },
-      {
-        image: "https://picsum.photos/seed/spain5/1200/700",
-        text: "Flamenco Performance",
-      },
-      {
-        image: "https://picsum.photos/seed/spain6/800/600",
-        text: "Spanish Architecture",
-      },
     ],
+    // Only photos - no description, image, or videoUrl - should show gallery only
   },
 ];
 
@@ -301,6 +250,17 @@ function Earth({ onLocationClick, activeLocation, hideLabels }) {
 // Modal component for location details
 function LocationModal({ location, onClose, isMobile }) {
   const [currentTab, setCurrentTab] = useState("overview");
+  const hasPhotos = location?.photos && location.photos.length > 0;
+  const hasVideo = location?.videoUrl;
+  const hasDescription = location?.description;
+  const hasImage = location?.image;
+  const hasOverviewContent = hasVideo || hasDescription || hasImage;
+
+  // Show tabs only if there are both photos AND overview content
+  const hasTabs = hasPhotos && hasOverviewContent;
+
+  // If only photos exist (no overview content), show gallery directly
+  const showOnlyGallery = hasPhotos && !hasOverviewContent;
 
   if (!location) return null;
 
@@ -417,56 +377,58 @@ function LocationModal({ location, onClose, isMobile }) {
           </button>
         </div>
 
-        {/* Tab Navigation */}
-        <div
-          style={{
-            display: "flex",
-            padding: "0 30px",
-            backgroundColor: "rgba(0, 0, 0, 0.2)",
-            borderBottom: "1px solid rgba(183, 187, 255, 0.1)",
-          }}
-        >
-          {[
-            { key: "overview", label: "🌟 Overview", icon: "📖" },
-            { key: "photos", label: "📸 Gallery", icon: "🖼️" },
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setCurrentTab(tab.key)}
-              style={{
-                background:
-                  currentTab === tab.key
-                    ? "linear-gradient(45deg, #b7bbff, #ff6b95)"
-                    : "transparent",
-                border: "none",
-                color: currentTab === tab.key ? "white" : "#b7bbff",
-                padding: "15px 25px",
-                borderRadius: "12px 12px 0 0",
-                cursor: "pointer",
-                fontSize: "1rem",
-                fontWeight: "600",
-                transition: "all 0.3s ease",
-                marginRight: "5px",
-                position: "relative",
-                top: currentTab === tab.key ? "0" : "2px",
-              }}
-              onMouseOver={(e) => {
-                if (currentTab !== tab.key) {
-                  e.target.style.backgroundColor = "rgba(183, 187, 255, 0.1)";
-                  e.target.style.color = "white";
-                }
-              }}
-              onMouseOut={(e) => {
-                if (currentTab !== tab.key) {
-                  e.target.style.backgroundColor = "transparent";
-                  e.target.style.color = "#b7bbff";
-                }
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        {/* Tab Navigation - Only show if there are tabs */}
+        {hasTabs && (
+          <div
+            style={{
+              display: "flex",
+              padding: "0 30px",
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              borderBottom: "1px solid rgba(183, 187, 255, 0.1)",
+            }}
+          >
+            {[
+              { key: "overview", label: "🌟 Overview", icon: "📖" },
+              { key: "photos", label: "📸 Gallery", icon: "🖼️" },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setCurrentTab(tab.key)}
+                style={{
+                  background:
+                    currentTab === tab.key
+                      ? "linear-gradient(45deg, #b7bbff, #ff6b95)"
+                      : "transparent",
+                  border: "none",
+                  color: currentTab === tab.key ? "white" : "#b7bbff",
+                  padding: "15px 25px",
+                  borderRadius: "12px 12px 0 0",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  transition: "all 0.3s ease",
+                  marginRight: "5px",
+                  position: "relative",
+                  top: currentTab === tab.key ? "0" : "2px",
+                }}
+                onMouseOver={(e) => {
+                  if (currentTab !== tab.key) {
+                    e.target.style.backgroundColor = "rgba(183, 187, 255, 0.1)";
+                    e.target.style.color = "white";
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (currentTab !== tab.key) {
+                    e.target.style.backgroundColor = "transparent";
+                    e.target.style.color = "#b7bbff";
+                  }
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Content Area */}
         <div
@@ -477,129 +439,8 @@ function LocationModal({ location, onClose, isMobile }) {
             flexDirection: "column",
           }}
         >
-          {currentTab === "overview" && (
-            <div
-              style={{
-                padding: "40px",
-                display: "flex",
-                gap: "40px",
-                height: "100%",
-                overflow: "auto",
-                flexDirection: isMobile ? "column" : "row",
-              }}
-            >
-              {/* Main Image */}
-              <div
-                style={{
-                  flex: isMobile ? "none" : "1",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minHeight: "300px",
-                }}
-              >
-                <div
-                  style={{
-                    position: "relative",
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                    boxShadow: "0 20px 40px rgba(183, 187, 255, 0.3)",
-                  }}
-                >
-                  <img
-                    src={location.image}
-                    alt={location.name}
-                    style={{
-                      width: "100%",
-                      height: isMobile ? "300px" : "400px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background:
-                        "linear-gradient(45deg, rgba(183, 187, 255, 0.1), rgba(255, 107, 149, 0.1))",
-                      pointerEvents: "none",
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div
-                style={{
-                  flex: isMobile ? "none" : "1",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "25px",
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: isMobile ? "16px" : "18px",
-                    lineHeight: "1.7",
-                    color: "#e0e0e0",
-                    margin: 0,
-                  }}
-                >
-                  {location.description}
-                </p>
-
-                {/* Watch Vlog Button */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: isMobile ? "center" : "flex-start",
-                    marginTop: "20px",
-                  }}
-                >
-                  <a
-                    href={location.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      background: "linear-gradient(45deg, #ff6b95, #b7bbff)",
-                      color: "white",
-                      padding: "16px 32px",
-                      borderRadius: "20px",
-                      textDecoration: "none",
-                      fontWeight: "bold",
-                      fontSize: "1.1rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px",
-                      transition: "all 0.3s ease",
-                      boxShadow: "0 8px 25px rgba(255, 107, 149, 0.3)",
-                      textAlign: "center",
-                      minWidth: "200px",
-                      justifyContent: "center",
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.transform = "translateY(-3px) scale(1.05)";
-                      e.target.style.boxShadow =
-                        "0 15px 35px rgba(255, 107, 149, 0.5)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.transform = "translateY(0) scale(1)";
-                      e.target.style.boxShadow =
-                        "0 8px 25px rgba(255, 107, 149, 0.3)";
-                    }}
-                  >
-                    <span style={{ fontSize: "1.3rem" }}>🎥</span>
-                    Watch Travel Vlog
-                    <span style={{ fontSize: "1rem" }}>→</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {currentTab === "photos" && (
+          {/* Show gallery only if location has only photos */}
+          {showOnlyGallery ? (
             <div
               style={{
                 height: "100%",
@@ -640,6 +481,186 @@ function LocationModal({ location, onClose, isMobile }) {
                 />
               </div>
             </div>
+          ) : (
+            <>
+              {/* If no tabs, show overview content directly. If tabs exist, show based on currentTab */}
+              {(!hasTabs || currentTab === "overview") &&
+                hasOverviewContent && (
+                  <div
+                    style={{
+                      padding: "40px",
+                      display: "flex",
+                      gap: "40px",
+                      height: "100%",
+                      overflow: "auto",
+                      flexDirection: isMobile ? "column" : "row",
+                    }}
+                  >
+                    {/* Main Image - only show if image exists */}
+                    {hasImage && (
+                      <div
+                        style={{
+                          flex: isMobile ? "none" : "1",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          minHeight: "300px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: "relative",
+                            borderRadius: "20px",
+                            overflow: "hidden",
+                            boxShadow: "0 20px 40px rgba(183, 187, 255, 0.3)",
+                          }}
+                        >
+                          <img
+                            src={location.image}
+                            alt={location.name}
+                            style={{
+                              width: "100%",
+                              height: isMobile ? "300px" : "400px",
+                              objectFit: "cover",
+                            }}
+                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              background:
+                                "linear-gradient(45deg, rgba(183, 187, 255, 0.1), rgba(255, 107, 149, 0.1))",
+                              pointerEvents: "none",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Content */}
+                    <div
+                      style={{
+                        flex: isMobile ? "none" : "1",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "25px",
+                      }}
+                    >
+                      {/* Description - only show if description exists */}
+                      {hasDescription && (
+                        <p
+                          style={{
+                            fontSize: isMobile ? "16px" : "18px",
+                            lineHeight: "1.7",
+                            color: "#e0e0e0",
+                            margin: 0,
+                          }}
+                        >
+                          {location.description}
+                        </p>
+                      )}
+
+                      {/* Watch Vlog Button - Only show if videoUrl exists */}
+                      {hasVideo && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: isMobile ? "center" : "flex-start",
+                            marginTop: "20px",
+                          }}
+                        >
+                          <a
+                            href={location.videoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              background:
+                                "linear-gradient(45deg, #ff6b95, #b7bbff)",
+                              color: "white",
+                              padding: "16px 32px",
+                              borderRadius: "20px",
+                              textDecoration: "none",
+                              fontWeight: "bold",
+                              fontSize: "1.1rem",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "12px",
+                              transition: "all 0.3s ease",
+                              boxShadow: "0 8px 25px rgba(255, 107, 149, 0.3)",
+                              textAlign: "center",
+                              minWidth: "200px",
+                              justifyContent: "center",
+                            }}
+                            onMouseOver={(e) => {
+                              e.target.style.transform =
+                                "translateY(-3px) scale(1.05)";
+                              e.target.style.boxShadow =
+                                "0 15px 35px rgba(255, 107, 149, 0.5)";
+                            }}
+                            onMouseOut={(e) => {
+                              e.target.style.transform =
+                                "translateY(0) scale(1)";
+                              e.target.style.boxShadow =
+                                "0 8px 25px rgba(255, 107, 149, 0.3)";
+                            }}
+                          >
+                            <span style={{ fontSize: "1.3rem" }}>🎥</span>
+                            Watch Travel Vlog
+                            <span style={{ fontSize: "1rem" }}>→</span>
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              {/* Photos tab - only show if tabs exist and current tab is photos */}
+              {hasTabs && currentTab === "photos" && hasPhotos && (
+                <div
+                  style={{
+                    height: "100%",
+                    padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <h3
+                    style={{
+                      color: "#b7bbff",
+                      marginBottom: "20px",
+                      fontSize: "1.5rem",
+                      textAlign: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    📸 Photo Gallery - {location.name}
+                  </h3>
+                  <div
+                    style={{
+                      flex: 1,
+                      borderRadius: "15px",
+                      overflow: "hidden",
+                      border: "1px solid rgba(183, 187, 255, 0.2)",
+                    }}
+                  >
+                    <CircularGallery
+                      items={location.photos}
+                      bend={2}
+                      textColor="#b7bbff"
+                      borderRadius={0.08}
+                      scrollEase={0.05}
+                      font="bold 20px Figtree"
+                    />
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
