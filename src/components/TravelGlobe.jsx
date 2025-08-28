@@ -673,11 +673,13 @@ export const TravelGlobe = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [modalLocation, setModalLocation] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isSmallMobile, setIsSmallMobile] = useState(window.innerWidth < 400);
 
   // Handle window resize for responsiveness
   React.useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
+      setIsSmallMobile(window.innerWidth < 400);
     };
 
     window.addEventListener("resize", handleResize);
@@ -709,25 +711,27 @@ export const TravelGlobe = () => {
       <div
         style={{
           position: "absolute",
-          top: isMobile ? "160px" : "20px",
-          left: isMobile ? "10px" : "20px",
-          right: isMobile ? "10px" : "auto",
+          bottom: isMobile ? "120px" : "auto",
+          top: isMobile ? "auto" : "20px",
+          left: isSmallMobile ? "10px" : isMobile ? "15px" : "20px",
+          right: isSmallMobile ? "10px" : isMobile ? "15px" : "auto",
           color: "white",
           zIndex: 100,
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          padding: isMobile ? "12px" : "18px",
-          borderRadius: "12px",
-          fontSize: isMobile ? "13px" : "15px",
+          backgroundColor: "rgba(0, 0, 0, 0.9)",
+          padding: isSmallMobile ? "8px 10px" : isMobile ? "10px 12px" : "18px",
+          borderRadius: isSmallMobile ? "10px" : "12px",
+          fontSize: isSmallMobile ? "11px" : isMobile ? "12px" : "15px",
           backdropFilter: "blur(15px)",
           border: "2px solid rgba(183, 187, 255, 0.3)",
           boxShadow: "0 8px 25px rgba(183, 187, 255, 0.2)",
+          maxWidth: isMobile ? "none" : "auto",
         }}
       >
         <h4
           style={{
-            margin: "0 0 12px 0",
+            margin: isSmallMobile ? "0 0 8px 0" : "0 0 12px 0",
             color: "#b7bbff",
-            fontSize: isMobile ? "16px" : "18px",
+            fontSize: isSmallMobile ? "13px" : isMobile ? "14px" : "18px",
             fontWeight: "600",
             display: "flex",
             alignItems: "center",
@@ -738,28 +742,40 @@ export const TravelGlobe = () => {
         </h4>
         <div
           style={{
-            marginBottom: "8px",
+            marginBottom: isSmallMobile ? "5px" : "8px",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: isSmallMobile ? "6px" : "8px",
           }}
         >
-          <span style={{ fontSize: "1.2rem" }}>🖱️</span>
+          <span style={{ fontSize: isSmallMobile ? "1rem" : "1.2rem" }}>
+            🖱️
+          </span>
           {isMobile ? "Touch & drag to rotate" : "Drag to rotate globe"}
         </div>
         <div
           style={{
-            marginBottom: "8px",
+            marginBottom: isSmallMobile ? "5px" : "8px",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: isSmallMobile ? "6px" : "8px",
           }}
         >
-          <span style={{ fontSize: "1.2rem" }}>🔍</span>
+          <span style={{ fontSize: isSmallMobile ? "1rem" : "1.2rem" }}>
+            🔍
+          </span>
           {isMobile ? "Pinch to zoom in/out" : "Scroll to zoom"}
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <span style={{ fontSize: "1.2rem" }}>📍</span>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: isSmallMobile ? "6px" : "8px",
+          }}
+        >
+          <span style={{ fontSize: isSmallMobile ? "1rem" : "1.2rem" }}>
+            📍
+          </span>
           Click pins to explore my travels
         </div>
       </div>
