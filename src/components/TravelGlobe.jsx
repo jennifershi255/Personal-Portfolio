@@ -55,28 +55,108 @@ const locations = [
     emoji: "🗽",
     photos: [
       {
-        image: "https://picsum.photos/seed/nyc1/1300/800",
-        text: "Times Square Lights",
+        image: "/images/new_york/IMG_5576.JPG",
+        text: "jellycat store",
       },
       {
-        image: "https://picsum.photos/seed/nyc2/700/1000",
-        text: "Central Park Views",
+        image: "/images/new_york/373f122d4a057a33dba71ec1b6373f09.JPG",
+        text: "book store",
       },
       {
-        image: "https://picsum.photos/seed/nyc3/1200/800",
-        text: "Brooklyn Bridge",
+        image: "/images/new_york/79F2B4E5-7C61-4287-A011-AB050486767C.JPG",
+        text: "NYONW",
       },
       {
-        image: "https://picsum.photos/seed/nyc4/600/900",
-        text: "Statue of Liberty",
+        image: "/images/new_york/d0556af6ef838c8f5db7a612b9872f2a.JPG",
+        text: "BonBon Candy Store",
       },
       {
-        image: "https://picsum.photos/seed/nyc5/800/600",
-        text: "Broadway Theater",
+        image: "/images/new_york/IMG_5383.jpg",
+        text: "NYC Cityscape",
       },
       {
-        image: "https://picsum.photos/seed/nyc6/1500/900",
-        text: "NYC Skyline",
+        image: "/images/new_york/IMG_5388.jpg",
+        text: "hotel lobby",
+      },
+      {
+        image: "/images/new_york/IMG_5393 2.jpg",
+        text: "bagel",
+      },
+      {
+        image: "/images/new_york/IMG_5399.jpg",
+        text: "brooklyn bridge",
+      },
+      {
+        image: "/images/new_york/IMG_5431.jpg",
+        text: "bookstore",
+      },
+      {
+        image: "/images/new_york/IMG_5449.jpg",
+        text: "DUMBO",
+      },
+      {
+        image: "/images/new_york/IMG_5454.jpg",
+        text: "brooklyn bridge",
+      },
+      {
+        image: "/images/new_york/IMG_5520.jpg",
+        text: "times square",
+      },
+      {
+        image: "/images/new_york/IMG_5572.jpg",
+        text: "jellycat store",
+      },
+      {
+        image: "/images/new_york/IMG_5598.jpg",
+        text: "nyc public library",
+      },
+      {
+        image: "/images/new_york/IMG_5629.jpg",
+        text: "washingon square park",
+      },
+      {
+        image: "/images/new_york/IMG_5686.jpg",
+        text: "brooklyn bridge view",
+      },
+      {
+        image: "/images/new_york/IMG_5698.jpg",
+        text: "brooklyn bridge",
+      },
+      {
+        image: "/images/new_york/IMG_5733.jpg",
+        text: "sunset",
+      },
+      {
+        image: "/images/new_york/IMG_5799.jpg",
+        text: "cat",
+      },
+      {
+        image: "/images/new_york/IMG_5820.jpg",
+        text: "central park",
+      },
+      {
+        image: "/images/new_york/IMG_5826.jpg",
+        text: "central park",
+      },
+      {
+        image: "/images/new_york/IMG_5907.jpg",
+        text: "flower store",
+      },
+      {
+        image: "/images/new_york/IMG_6006.jpg",
+        text: "kayaking on hudson river",
+      },
+      {
+        image: "/images/new_york/IMG_6063.jpg",
+        text: "sunset",
+      },
+      {
+        image: "/images/new_york/IMG_6079 2.jpg",
+        text: "nyc cityscape",
+      },
+      {
+        image: "/images/new_york/IMG_6092.jpg",
+        text: "me",
       },
     ],
   },
