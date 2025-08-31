@@ -17,39 +17,13 @@ const locations = [
     videoUrl: "https://youtu.be/tR-0iuq9yCQ?si=9Ym6neh0KDWA_efh",
     image: italy,
     emoji: "🇮🇹",
-    photos: [
-      {
-        image: "https://picsum.photos/seed/italy1/1200/800",
-        text: "Colosseum at Sunset",
-      },
-      {
-        image: "https://picsum.photos/seed/italy2/600/900",
-        text: "Venice Gondolas",
-      },
-      {
-        image: "https://picsum.photos/seed/italy3/1400/900",
-        text: "Tuscany Vineyards",
-      },
-      {
-        image: "https://picsum.photos/seed/italy4/800/600",
-        text: "Roman Forum",
-      },
-      {
-        image: "https://picsum.photos/seed/italy5/600/800",
-        text: "Italian Cuisine",
-      },
-      {
-        image: "https://picsum.photos/seed/italy6/1100/700",
-        text: "Florence Architecture",
-      },
-    ],
   },
   {
     id: "new-york",
     name: "New York",
     lat: 40.7589,
     lng: -73.9851,
-    description: "Spontaneous New York trip for a week!",
+    description: "New York trip for a week!",
     videoUrl: "https://youtu.be/23AMHv1Rfi0?si=5nJpnSE03vHvIY52",
     image: newYork,
     emoji: "🗽",
@@ -165,10 +139,10 @@ const locations = [
     name: "Montreal",
     lat: 45.5017,
     lng: -73.5673,
-    description: "Amazing Montreal adventure in the heart of Quebec!",
-    image: "https://picsum.photos/seed/montreal-main/1200/800",
+    description: "Montreal trip for Osheaga!",
+    image: "/images/montreal/osheaga_thumbnail.png",
     emoji: "🇨🇦",
-    videoUrl: "https://youtu.be/23AMHv1Rfi0?si=5nJpnSE03vHvIY52",
+    videoUrl: "https://youtu.be/SkW1sz3LTbs?si=BGg4IUJjLL3ueMKw",
   },
   {
     id: "spain",
