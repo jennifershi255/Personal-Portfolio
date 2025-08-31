@@ -18,10 +18,10 @@ export const Travel = () => {
         <TiltedCard
           imageSrc={italy}
           captionText="italy vlog- youtube"
-          containerHeight="300px"
-          containerWidth="450px"
-          imageHeight="300px"
-          imageWidth="450px"
+          containerHeight="clamp(250px, 40vw, 350px)"
+          containerWidth="clamp(280px, 80vw, 500px)"
+          imageHeight="clamp(250px, 40vw, 350px)"
+          imageWidth="clamp(280px, 80vw, 500px)"
           rotateAmplitude={12}
           scaleOnHover={1.2}
           showMobileWarning={false}
@@ -32,10 +32,10 @@ export const Travel = () => {
         <TiltedCard
           imageSrc={newYork}
           captionText="new york vlog- youtube"
-          containerHeight="300px"
-          containerWidth="450px"
-          imageHeight="300px"
-          imageWidth="450px"
+          containerHeight="clamp(250px, 40vw, 350px)"
+          containerWidth="clamp(280px, 80vw, 500px)"
+          imageHeight="clamp(250px, 40vw, 350px)"
+          imageWidth="clamp(280px, 80vw, 500px)"
           rotateAmplitude={12}
           scaleOnHover={1.2}
           showMobileWarning={false}

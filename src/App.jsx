@@ -20,11 +20,14 @@ function App() {
   // Check if the current route is Projects page
   const showSplashCursor = location.pathname !== "/projects"; // Hide SplashCursor on Projects page
 
+  // Hide NavBar on travel page
+  const showNavBar = location.pathname !== "/travel";
+
   return (
     <div>
       {showSplashCursor && <SplashCursor />}{" "}
       {/* Conditionally render SplashCursor */}
-      <NavBar />
+      {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/travel" element={<TravelPage />} />
