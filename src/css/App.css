@@ -312,21 +312,31 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .banner .namecard::after{
   content: '';
   position: absolute;
-  height: 105%;
-  width: 101%;
+  height: calc(100% + 6px);
+  width: calc(100% + 6px);
   background-image: conic-gradient(from var(--angle), transparent 70%, #b7bbff);
   top: 50%;
   left: 50%;
-  translate: -50% -50%;
+  transform: translate(-50%, -50%);
   z-index: -1;
-  padding: 3px;
-  border-radius: 20px;
+  border-radius: 23px;
   animation: 4s spin linear infinite;
 }
 
 .banner .namecard::before{
+  content: '';
+  position: absolute;
+  height: calc(100% + 6px);
+  width: calc(100% + 6px);
+  background-image: conic-gradient(from var(--angle), transparent 70%, #b7bbff);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  border-radius: 23px;
   filter: blur(2.5rem);
   opacity: 0.5;
+  animation: 4s spin linear infinite;
 }
 
 @keyframes spin{

@@ -11,7 +11,4 @@ export default defineConfig({
       port: 3001,
     },
   },
-  define: {
-    __WS_TOKEN__: JSON.stringify('development'),
-  },
 })
