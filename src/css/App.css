@@ -321,6 +321,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   z-index: -1;
   border-radius: 23px;
   animation: 4s spin linear infinite;
+  /* Mobile optimizations */
+  -webkit-transform: translate(-50%, -50%);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 .banner .namecard::before{
@@ -337,6 +342,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   filter: blur(2.5rem);
   opacity: 0.5;
   animation: 4s spin linear infinite;
+  /* Mobile optimizations */
+  -webkit-transform: translate(-50%, -50%);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 @keyframes spin{
@@ -889,6 +899,30 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   .banner .namecard {
     padding: 15px;
     max-width: 100%; /* Ensure namecard takes up full width */
+  }
+
+  /* Mobile-specific glow border optimizations */
+  .banner .namecard::after,
+  .banner .namecard::before {
+    border-radius: 24px !important; /* Match namecard border radius + padding */
+    will-change: transform;
+    -webkit-transform: translate(-50%, -50%) translateZ(0);
+    transform: translate(-50%, -50%) translateZ(0);
+    /* Smooth out the rectangular edges */
+    background-size: 200% 200%;
+  }
+
+  .banner .namecard::after {
+    background-image: conic-gradient(from var(--angle), transparent 70%, #b7bbff) !important;
+    height: calc(100% + 6px);
+    width: calc(100% + 6px);
+  }
+
+  .banner .namecard::before {
+    background-image: conic-gradient(from var(--angle), transparent 70%, #b7bbff) !important;
+    filter: blur(1.5rem); /* Reduce blur on mobile for better performance */
+    height: calc(100% + 6px);
+    width: calc(100% + 6px);
   }
 
   .banner h1 {
