@@ -4,32 +4,31 @@ import MarketMatch from "../assets/img/MarketMatch.png";
 import JupyterLogo from "../assets/img/Jupyter_logo.svg.png";
 import PythonLogo from "../assets/img/Python-logo-notext.svg.png";
 import PandasLogo from "../assets/img/pandaslogo.png";
-import javascript from "../assets/img/JavaScript-logo.png";
-import figma from "../assets/img/Figma-logo.svg";
 import MLMHockey from "../assets/img/MLM.png";
 import scikit from "../assets/img/scikit.png";
-import html from "../assets/img/html.png";
-import mindyourstep from "../assets/img/mindyourstep.png";
-
+import mediapipe from "../assets/img/mediapipe.png";
+import ript from "../assets/img/ript.png";
+import mongo from "../assets/img/mongo.webp";
+import react from "../assets/img/reactlogo.png";
 export const Projects = () => {
   const projects = [
     {
-      title: "Mind Your Step",
+      title: "ript",
       description: (
         <>
-          An interactive game designed to tackle critical challenges in early
-          learning. <br /> <br />{" "}
+          A personal trainer who watches your form through your camera and uses
+          AI to spot issues in real time. <br /> <br />{" "}
           <strong style={{ fontWeight: "bold" }}>
-            "MindYourStep: Empowering Young Minds, One Step at a Time!"
+            "We’re Ript: fitness that flexes for everyone."
           </strong>{" "}
           <br /> <br />{" "}
         </>
       ),
-      imgUrl: mindyourstep,
-      techImg1: html,
-      techImg2: javascript,
-      techImg3: figma,
-      link: "https://www.youtube.com/watch?v=_9TFfhiwJGw",
+      imgUrl: ript,
+      techImg1: mediapipe,
+      techImg2: mongo,
+      techImg3: react,
+      link: "https://devpost.com/software/ript-9nq3iz",
     },
     {
       title: "Hockey Goal ML Model",
