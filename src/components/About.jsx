@@ -26,11 +26,9 @@ export const About = () => {
             {" "}
             tangible difference. <br />
           </strong>{" "}
-          <br /> My hobbies include swimming, dance,{" "}
-          <strong className="purple">playing instruments</strong>, reading, and
-          baking. Some fun facts about me are that I was a former national-level{" "}
-          <strong className="purple"> synchronized swimmer</strong>, I've been
-          to over 10 countries, and I have two cats.
+          <br /> My hobbies include swimming, dance, playing instruments,
+          reading, and baking. I also love travelling, watching sports, and
+          going on walks!
           <br /> <br /> Feel free to
           <a href="#connect" className="purple">
             <strong> connect</strong>{" "}
