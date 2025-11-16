@@ -14,7 +14,7 @@ env:
   S3_BUCKET: jennifershi-portfolio
   ECS_CLUSTER: portfolio-cluster
   ECS_SERVICE: portfolio-service
-  CLOUDFRONT_DISTRIBUTION_ID: E1A2B3C4D5E6F7
+  CLOUDFRONT_DISTRIBUTION_ID: EMO33Y6URVLQP
 
 jobs:
   build-and-deploy:
