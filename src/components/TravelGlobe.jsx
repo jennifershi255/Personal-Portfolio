@@ -229,20 +229,56 @@ const locations = [
     lng: -3.7038,
     photos: [
       {
-        image: "https://picsum.photos/seed/spain1/1400/900",
-        text: "Barcelona Sagrada Familia",
+        image: "/images/spain/IMG_1412.jpg",
+        text: "food!",
       },
       {
-        image: "https://picsum.photos/seed/spain2/600/900",
-        text: "Madrid Royal Palace",
+        image: "/images/spain/IMG_2861.jpg",
+        text: "fooood",
       },
       {
-        image: "https://picsum.photos/seed/spain3/1300/800",
-        text: "Park Güell Views",
+        image: "/images/spain/IMG_2970.JPG",
+        text: "malaga beach",
       },
       {
-        image: "https://picsum.photos/seed/spain4/700/1000",
-        text: "Spanish Tapas",
+        image: "/images/spain/IMG_3049.JPG",
+        text: "foodddd",
+      },
+      {
+        image: "/images/spain/IMG_3347.jpg",
+        text: "spanish fans!",
+      },
+      {
+        image: "/images/spain/IMG_7331.JPG",
+        text: "royal palace of madrid",
+      },
+      {
+        image: "/images/spain/IMG_7443.JPG",
+        text: "segovia aquaduct",
+      },
+      {
+        image: "/images/spain/IMG_7444.JPG",
+        text: "segovia aquaduct",
+      },
+      {
+        image: "/images/spain/IMG_7544.JPG",
+        text: "fountain",
+      },
+      {
+        image: "/images/spain/IMG_7553.JPG",
+        text: "garden",
+      },
+      {
+        image: "/images/spain/IMG_7585.jpg",
+        text: "llao llao (my fav froyo)",
+      },
+      {
+        image: "/images/spain/IMG_7714.JPG",
+        text: "sagrada familia",
+      },
+      {
+        image: "/images/spain/IMG_7716.JPG",
+        text: "sagrada familia",
       },
     ],
   },
@@ -869,7 +905,7 @@ export const TravelGlobe = () => {
             gap: "8px",
           }}
         >
-          🌍 Explore the Globe
+          Explore the Globe
         </h4>
         <div
           style={{
@@ -879,10 +915,7 @@ export const TravelGlobe = () => {
             gap: isSmallMobile ? "6px" : "8px",
           }}
         >
-          <span style={{ fontSize: isSmallMobile ? "1rem" : "1.2rem" }}>
-            🖱️
-          </span>
-          {isMobile ? "Touch & drag to rotate" : "Drag to rotate globe"}
+          {isMobile ? "Touch & drag to rotate" : "● Drag to rotate globe"}
         </div>
         <div
           style={{
@@ -892,10 +925,7 @@ export const TravelGlobe = () => {
             gap: isSmallMobile ? "6px" : "8px",
           }}
         >
-          <span style={{ fontSize: isSmallMobile ? "1rem" : "1.2rem" }}>
-            🔍
-          </span>
-          {isMobile ? "Pinch to zoom in/out" : "Scroll to zoom"}
+          {isMobile ? "Pinch to zoom in/out" : "● Scroll to zoom"}
         </div>
         <div
           style={{
@@ -904,10 +934,7 @@ export const TravelGlobe = () => {
             gap: isSmallMobile ? "6px" : "8px",
           }}
         >
-          <span style={{ fontSize: isSmallMobile ? "1rem" : "1.2rem" }}>
-            📍
-          </span>
-          Click pins to explore my travels
+          ● Click pins to explore my travels
         </div>
       </div>
 
