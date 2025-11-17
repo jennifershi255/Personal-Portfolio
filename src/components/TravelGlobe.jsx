@@ -17,6 +17,84 @@ const locations = [
     videoUrl: "https://youtu.be/tR-0iuq9yCQ?si=9Ym6neh0KDWA_efh",
     image: italy,
     emoji: "🇮🇹",
+    photos: [
+      {
+        image: "/images/italy/IMG_4417.jpg",
+        text: "florence, italy",
+      },
+      {
+        image: "/images/italy/IMG_4588.jpg",
+        text: "leaning tower of pisa",
+      },
+      {
+        image: "/images/italy/IMG_4707.jpg",
+        text: "venice, italy",
+      },
+      {
+        image: "/images/italy/IMG_4726.jpg",
+        text: "venice canals",
+      },
+      {
+        image: "/images/italy/IMG_4908.jpg",
+        text: "venice, italy",
+      },
+      {
+        image: "/images/italy/IMG_4911.jpg",
+        text: "venice canals",
+      },
+      {
+        image: "/images/italy/IMG_5025.jpg",
+        text: "duomo di milano",
+      },
+      {
+        image: "/images/italy/IMG_5216.jpg",
+        text: "pasta! 🍝",
+      },
+      {
+        image: "/images/italy/IMG_5220.jpg",
+        text: "sorrento, italy",
+      },
+      {
+        image: "/images/italy/IMG_5238.jpg",
+        text: "museum",
+      },
+      {
+        image: "/images/italy/IMG_5352.jpg",
+        text: "sorrento beach",
+      },
+      {
+        image: "/images/italy/IMG_5354.jpg",
+        text: "blue grotto",
+      },
+      {
+        image: "/images/italy/IMG_5359.jpg",
+        text: "blue grotto",
+      },
+      {
+        image: "/images/italy/IMG_5390.jpg",
+        text: "blue grotto",
+      },
+      {
+        image: "/images/italy/IMG_5776.jpg",
+        text: "pizza",
+      },
+      {
+        image: "/images/italy/IMG_5843.jpg",
+        text: "cathedral",
+      },
+      {
+        image: "/images/italy/IMG_5906.jpg",
+        text: "colosseum",
+      },
+      {
+        image: "/images/italy/IMG_6063.jpg",
+        text: "trevi fountain",
+      },
+      {
+        image: "/images/italy/IMG_6082.jpg",
+        text: "museum",
+      },
+    ],
   },
   {
     id: "new-york",
@@ -167,7 +245,6 @@ const locations = [
         text: "Spanish Tapas",
       },
     ],
-    // Only photos - no description, image, or videoUrl - should show gallery only
   },
 ];
 
