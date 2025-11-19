@@ -16,7 +16,7 @@ export const About = () => {
           )}
         </TrackVisibility>
         <p>
-          Hi! I'm AWS, a{" "}
+          Hi! I'm Jennifer Shi, a{" "}
           <strong className="purple">Computing and Financial Management</strong>{" "}
           student at the
           <strong className="purple"> University of Waterloo</strong>, driven to{" "}
