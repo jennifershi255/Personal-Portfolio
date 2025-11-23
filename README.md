@@ -36,7 +36,7 @@ A modern, interactive personal portfolio website showcasing my projects and inte
 - **Terraform** - Infrastructure as Code (IaC)
 
 ## 🏗️ Architecture
-
+![Architecture Diagram](./public/images/diagram.jpg)
 
 ## 📁 Project Structure
 ```
