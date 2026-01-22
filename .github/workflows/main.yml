@@ -84,7 +84,6 @@ jobs:
       # 10. Deploy to ECS Fargate (only on push to main)
       - name: Deploy to ECS Fargate
         if: false
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           aws ecs update-service \
             --cluster ${{ env.ECS_CLUSTER }} \
@@ -95,7 +94,6 @@ jobs:
       # 11. Invalidate CloudFront cache
       - name: Invalidate CloudFront Cache
         if: false
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
