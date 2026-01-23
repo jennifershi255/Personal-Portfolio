@@ -19,6 +19,7 @@ jobs:
 
       # 2. Setup Terraform
       - name: Setup Terraform
+        if: false
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: "1.4.0"
@@ -26,6 +27,7 @@ jobs:
       # 3. Terraform Init & Apply (root folder)
       - name: Terraform Apply
         id: terraform
+        if: false # skip for now
         run: |
           terraform init
           terraform apply -auto-approve
