@@ -17,8 +17,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const location = useLocation(); // Get the current route
 
-  // Check if the current route is Projects page
-  const showSplashCursor = location.pathname !== "/projects"; // Hide SplashCursor on Projects page
+  // Hide SplashCursor on the Projects and Travel pages
+  const showSplashCursor =
+    location.pathname !== "/projects" && location.pathname !== "/travel";
 
   // Hide NavBar on travel page
   const showNavBar = location.pathname !== "/travel";
