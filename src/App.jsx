@@ -1,56 +1,18 @@
-import { useLocation } from "react-router-dom"; // Import useLocation
-import { Route, Routes } from "react-router-dom"; // Correct import for Route and Routes
-import { NavBar } from "./components/NavBar";
-import { Banner } from "./components/Banner";
-import { About } from "./components/About";
-import { Projects } from "./components/Projects";
-import { Notes } from "./components/Notes";
-import { Connect } from "./components/Connect";
-import { Footer } from "./components/Footer";
-import { Travel } from "./components/Travel";
-import TravelPage from "./TravelPage";
+import { Route, Routes } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
-import SplashCursor from "./SplashCursor"; // Import SplashCursor
-
-import "bootstrap/dist/css/bootstrap.min.css";
+import Journey from "./Journey";
+import TravelPage from "./TravelPage";
 
 function App() {
-  const location = useLocation(); // Get the current route
-
-  // Hide SplashCursor on the Projects and Travel pages
-  const showSplashCursor =
-    location.pathname !== "/projects" && location.pathname !== "/travel";
-
-  // Hide NavBar on travel page
-  const showNavBar = location.pathname !== "/travel";
-
   return (
     <div>
-      {showSplashCursor && <SplashCursor />}{" "}
-      {/* Conditionally render SplashCursor */}
-      {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Journey />} />
         <Route path="/travel" element={<TravelPage />} />
       </Routes>
       <Analytics />
     </div>
   );
 }
-
-const HomePage = () => {
-  return (
-    <div>
-      <Banner />
-      <About />
-      <div className="section-padding">
-        <Projects />
-      </div>
-      <Travel />
-      <Connect />
-      <Footer />
-    </div>
-  );
-};
 
 export default App;
