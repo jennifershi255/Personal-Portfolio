@@ -1,55 +1,44 @@
-import { useLocation } from "react-router-dom"; // Import useLocation
-import { Route, Routes } from "react-router-dom"; // Correct import for Route and Routes
-import { NavBar } from "./components/NavBar";
-import { Banner } from "./components/Banner";
-import { About } from "./components/About";
-import { Projects } from "./components/Projects";
-import { Notes } from "./components/Notes";
-import { Connect } from "./components/Connect";
-import { Footer } from "./components/Footer";
-import { Travel } from "./components/Travel";
-import TravelPage from "./TravelPage";
+import { lazy, Suspense, useLayoutEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
-import SplashCursor from "./SplashCursor"; // Import SplashCursor
+import Journey from "./Journey";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+const TravelPage = lazy(() => import("./TravelPage"));
+
+function RestoreHomeScroll() {
+  const { pathname, hash } = useLocation();
+  useLayoutEffect(() => {
+    document.body.style.cursor = "";
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    if (pathname !== "/") return;
+    if (hash) {
+      document.getElementById(hash.slice(1))?.scrollIntoView();
+      return;
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+  return null;
+}
 
 function App() {
-  const location = useLocation(); // Get the current route
-
-  // Check if the current route is Projects page
-  const showSplashCursor = location.pathname !== "/projects"; // Hide SplashCursor on Projects page
-
-  // Hide NavBar on travel page
-  const showNavBar = location.pathname !== "/travel";
-
   return (
     <div>
-      {showSplashCursor && <SplashCursor />}{" "}
-      {/* Conditionally render SplashCursor */}
-      {showNavBar && <NavBar />} {/* Conditionally render NavBar */}
+      <RestoreHomeScroll />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/travel" element={<TravelPage />} />
+        <Route path="/" element={<Journey />} />
+        <Route
+          path="/travel"
+          element={
+            <Suspense fallback={null}>
+              <TravelPage />
+            </Suspense>
+          }
+        />
       </Routes>
       <Analytics />
     </div>
   );
 }
-
-const HomePage = () => {
-  return (
-    <div>
-      <Banner />
-      <About />
-      <div className="section-padding">
-        <Projects />
-      </div>
-      <Travel />
-      <Connect />
-      <Footer />
-    </div>
-  );
-};
 
 export default App;
