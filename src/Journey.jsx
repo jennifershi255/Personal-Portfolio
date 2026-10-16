@@ -12,11 +12,7 @@ import "./css/Journey.css";
 
 const THEME_KEY = "jn-red-eye";
 
-const initialRedEye = () => {
-  const saved = localStorage.getItem(THEME_KEY);
-  if (saved !== null) return saved === "1";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches;
-};
+const initialRedEye = () => localStorage.getItem(THEME_KEY) === "1";
 
 export default function Journey() {
   const [openProject, setOpenProject] = useState(null);
