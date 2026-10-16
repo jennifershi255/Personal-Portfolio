@@ -58,9 +58,9 @@ function Postcard({ project, number, flipped, onFlip }) {
       </div>
 
       <div className="jn-pc-card" onClick={flipFromCard}>
-        <span className="jn-pc-tape" aria-hidden />
         <div className="jn-pc-inner">
           <div className="jn-pc-front" aria-hidden={flipped}>
+            <span className="jn-pc-tape" aria-hidden />
             <div className="jn-pc-skin">
               {project.image && <img src={project.image} alt="" loading="lazy" />}
               <div className="jn-pc-greet">
@@ -78,6 +78,7 @@ function Postcard({ project, number, flipped, onFlip }) {
           </div>
 
           <div id={backId} className="jn-pc-back" aria-hidden={!flipped}>
+            <span className="jn-pc-tape" aria-hidden />
             <div className="jn-pc-skin">
               <div className="jn-pc-note">
                 <span className="jn-label">The problem</span>

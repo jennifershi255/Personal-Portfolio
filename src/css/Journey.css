@@ -932,12 +932,14 @@ body:has(.jn.is-redeye) {
   z-index: 3;
   width: 104px;
   height: 28px;
-  translate: -50% 0;
-  rotate: -4deg;
+  transform: translate(-50%, 0) rotate(-4deg) translateZ(2px);
+  -webkit-transform: translate(-50%, 0) rotate(-4deg) translateZ(2px);
   background: color-mix(in srgb, var(--tag) 78%, transparent);
   box-shadow: 0 1px 3px rgba(40, 30, 10, 0.12);
   clip-path: polygon(3% 0, 97% 4%, 100% 30%, 96% 55%, 100% 100%, 2% 96%, 0 65%, 4% 40%);
   pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .jn-pc-inner {
