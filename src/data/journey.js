@@ -288,12 +288,12 @@ export const playlist = [
     duration: 172,
   },
   {
-    id: "mr-blue-sky",
-    title: "Mr. Blue Sky",
+    id: "ldn",
+    title: "LDN",
     artist: "Lily Allen",
-    album: "Alright, Still (Deluxe Edition)",
-    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music3/v4/5c/78/2b/5c782b65-4feb-6909-88b3-78894e8321ac/dj.uoqyorun.jpg/600x600bb.jpg",
-    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a7/c9/18/a7c9183e-34d9-5116-5a54-a070b4743855/mzaf_4526410126233696650.plus.aac.p.m4a",
-    duration: 226,
+    album: "Alright, Still",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music1/v4/bb/d8/3c/bbd83c7f-1e44-8be8-a359-7a89a7a60f94/dj.hjabuthf.jpg/600x600bb.jpg",
+    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ab/c7/75/abc775ae-6864-ea3c-3ae6-ce12b20ce0d2/mzaf_2923566243302932857.plus.aac.p.m4a",
+    duration: 192,
   },
 ];
