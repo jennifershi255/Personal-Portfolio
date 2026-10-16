@@ -26,6 +26,15 @@ const TravelPage = () => {
   const [focus, setFocus] = useState(null);
   const [open, setOpen] = useState(null);
 
+  useEffect(() => {
+    const { overflow } = document.documentElement.style;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = overflow;
+      document.body.style.cursor = "";
+    };
+  }, []);
+
   const select = useCallback((location) => {
     setHovered(null);
     document.body.style.cursor = "";

@@ -1,140 +1,156 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { projects } from "../../data/journey";
-import { Arrow } from "./Icons";
+import { motion } from "framer-motion";
+import { passenger, projects } from "../../data/journey";
+import { Arrow, Flip } from "./Icons";
 
 const pad = (n) => String(n).padStart(2, "0");
 
-function Ticket({ project, number, open, onToggle }) {
+function Postcard({ project, number, flipped, onFlip }) {
+  const backId = `postcard-back-${project.id}`;
+  const flipFromCard = (e) => {
+    if (!e.target.closest("a")) onFlip();
+  };
+
   return (
     <motion.article
-      id={`ticket-${project.id}`}
-      className={`jn-ticket${open ? " is-open" : ""}`}
-      layout="position"
-      initial={{ opacity: 0, y: 24 }}
+      id={`postcard-${project.id}`}
+      className={`jn-pc${flipped ? " is-flipped" : ""}${number % 2 === 0 ? " is-alt" : ""}`}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
     >
-      <div className="jn-ticket-main">
-        <div className="jn-ticket-top">
-          <span className="jn-label">Destination {pad(number)}</span>
-          <span className="jn-label">{project.tagline}</span>
-        </div>
-        <h3 className="jn-ticket-name">{project.name}</h3>
-        <p className="jn-ticket-result">{project.result}</p>
-
-        <div className="jn-ticket-meta">
-          <div className="jn-field">
-            <span className="jn-label">Class</span>
-            <span className="jn-chips">
-              {project.stack.map((s) => (
-                <span key={s} className="jn-chip">
-                  {s}
-                </span>
-              ))}
+      <div className="jn-pc-info">
+        <span className="jn-label">
+          Destination {pad(number)} · {project.tagline}
+        </span>
+        <h3 className="jn-pc-name">{project.name}</h3>
+        <p className="jn-pc-result">{project.result}</p>
+        <span className="jn-chips">
+          {project.stack.map((s) => (
+            <span key={s} className="jn-chip">
+              {s}
             </span>
-          </div>
-        </div>
-
-        <div className="jn-ticket-actions">
+          ))}
+        </span>
+        <div className="jn-pc-actions">
           {project.links.map((l) => (
-            <a key={l.href} className="jn-btn is-solid" href={l.href} target="_blank" rel="noopener noreferrer">
+            <a
+              key={l.href}
+              className="jn-btn is-solid"
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {l.label} <Arrow direction="up-right" />
             </a>
           ))}
           <button
             type="button"
             className="jn-btn"
-            onClick={onToggle}
-            aria-expanded={open}
-            aria-controls={`entry-${project.id}`}
+            onClick={onFlip}
+            aria-pressed={flipped}
+            aria-controls={backId}
           >
-            {open ? "Close entry" : "Open travel entry"}
+            {flipped ? "Turn it back" : "Read the back"} <Flip />
           </button>
         </div>
       </div>
 
-      <div className="jn-ticket-stub" aria-hidden={!project.image}>
-        {project.image ? (
-          <img src={project.image} alt="" loading="lazy" />
-        ) : (
-          <span className="jn-ticket-code">{project.name.slice(0, 3).toUpperCase()}</span>
-        )}
-        <span className="jn-ticket-no">No. {pad(number)}</span>
-      </div>
+      <div className="jn-pc-card" onClick={flipFromCard}>
+        <span className="jn-pc-tape" aria-hidden />
+        <div className="jn-pc-inner">
+          <div className="jn-pc-front" aria-hidden={flipped}>
+            {project.image && <img src={project.image} alt="" loading="lazy" />}
+            <div className="jn-pc-greet">
+              <span>Greetings from</span>
+              <strong>{project.name}</strong>
+            </div>
+            <span className="jn-pc-stamp is-small" aria-hidden>
+              <span>No.</span>
+              <b>{pad(number)}</b>
+            </span>
+            <span className="jn-pc-hint" aria-hidden>
+              <Flip size={12} /> Flip me
+            </span>
+          </div>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id={`entry-${project.id}`}
-            className="jn-entry"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.45, ease: [0.2, 0.7, 0.2, 1] }}
-          >
-            <div className="jn-entry-inner">
-              <div className="jn-entry-route">
-                <div>
-                  <span className="jn-label">Origin · the problem</span>
-                  <p>{project.origin}</p>
-                </div>
-                <Arrow size={20} />
-                <div>
-                  <span className="jn-label">Destination · the outcome</span>
-                  <p>{project.destination}</p>
-                </div>
+          <div id={backId} className="jn-pc-back" aria-hidden={!flipped}>
+            <div className="jn-pc-note">
+              <span className="jn-label">The problem</span>
+              <p className="jn-pc-hand">{project.origin}</p>
+              <span className="jn-label">What I built</span>
+              <p className="jn-pc-hand">{project.destination}</p>
+              <ul className="jn-pc-log">
+                {project.log.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+              <p className="jn-pc-sign">Best regards, {passenger.firstName}</p>
+            </div>
+
+            <div className="jn-pc-side">
+              <div className="jn-pc-marks">
+                <span className="jn-pc-postmark" aria-hidden>
+                  <span>{passenger.flight}</span>
+                  <span>No. {pad(number)}</span>
+                </span>
+                <span className="jn-pc-stamp">
+                  {project.image && (
+                    <img src={project.image} alt="" loading="lazy" />
+                  )}
+                  <span>{project.tagline}</span>
+                </span>
               </div>
-              <div className="jn-entry-cols">
+              <dl className="jn-pc-address">
+                {project.flightTime && (
+                  <div>
+                    <dt>Flight time</dt>
+                    <dd>{project.flightTime}</dd>
+                  </div>
+                )}
+                {project.crew && (
+                  <div>
+                    <dt>Crew</dt>
+                    <dd>{project.crew}</dd>
+                  </div>
+                )}
                 <div>
-                  <span className="jn-label">Flight log</span>
-                  <ul>
-                    {project.log.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                </div>
-                <dl className="jn-entry-facts">
-                  {project.flightTime && (
-                    <>
-                      <dt>Flight time</dt>
-                      <dd>{project.flightTime}</dd>
-                    </>
-                  )}
-                  {project.crew && (
-                    <>
-                      <dt>Crew</dt>
-                      <dd>{project.crew}</dd>
-                    </>
-                  )}
                   <dt>Class</dt>
                   <dd>{project.stack.join(", ")}</dd>
+                </div>
+                <div>
                   <dt>Gate</dt>
                   <dd>
                     {project.links.length
                       ? project.links.map((l) => (
-                          <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
+                          <a
+                            key={l.href}
+                            href={l.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            tabIndex={flipped ? 0 : -1}
+                          >
                             {l.label} ↗
                           </a>
                         ))
-                      : "Private nonprofit codebase"}
+                      : "Private codebase"}
                   </dd>
-                </dl>
-              </div>
+                </div>
+              </dl>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      </div>
     </motion.article>
   );
 }
 
 export default function Destinations({ openProject, onOpenProject }) {
-  const [open, setOpen] = useState(null);
+  const [flipped, setFlipped] = useState(null);
 
   useEffect(() => {
-    if (openProject) setOpen(openProject);
+    if (openProject) setFlipped(openProject);
   }, [openProject]);
 
   return (
@@ -143,19 +159,20 @@ export default function Destinations({ openProject, onOpenProject }) {
         <p className="jn-kicker">Destinations</p>
         <h2 className="jn-h2">Projects</h2>
         <p className="jn-section-note">
-          Each ticket has the result and links up front. Open an entry for the full trip.
+          Postcards from every place I&rsquo;ve built. Flip one over for the
+          full story.
         </p>
       </header>
-      <div className="jn-tickets">
+      <div className="jn-pcs">
         {projects.map((p, i) => (
-          <Ticket
+          <Postcard
             key={p.id}
             project={p}
             number={i + 1}
-            open={open === p.id}
-            onToggle={() => {
-              const next = open === p.id ? null : p.id;
-              setOpen(next);
+            flipped={flipped === p.id}
+            onFlip={() => {
+              const next = flipped === p.id ? null : p.id;
+              setFlipped(next);
               onOpenProject?.(next);
             }}
           />

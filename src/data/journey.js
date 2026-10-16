@@ -2,8 +2,13 @@ import headshot from "../assets/img/journey/headshot.jpg";
 import riptImg from "../assets/img/journey/ript.jpg";
 import marketMatchImg from "../assets/img/journey/marketmatch.jpg";
 import hockeyImg from "../assets/img/journey/hockey.jpg";
-import italyCover from "../assets/img/journey/italy.jpg";
-import newYorkCover from "../assets/img/journey/newyork.jpg";
+import ipadImg from "../assets/img/journey/bag/ipad.webp";
+import ipadPhoto from "../assets/img/journey/bag/ipad-photo.webp";
+import headphonesImg from "../assets/img/journey/bag/headphones.webp";
+import headphonesPhoto from "../assets/img/journey/bag/headphones-photo.webp";
+import jellycatImg from "../assets/img/journey/bag/jellycat.webp";
+import foodPhoto from "../assets/img/journey/bag/food-photo.jpg";
+import playlistCoverImg from "../assets/img/journey/playlist-cover.jpg";
 
 export const contact = {
   email: "j286shi@uwaterloo.ca",
@@ -60,7 +65,7 @@ export const projects = [
     log: [
       "Multi-factor scoring and constraint modeling on historical data.",
       "Interactive comparison dashboard and automated PDF reporting.",
-      "CI/CD with GitHub Actions and Terraform onto AWS ECS Fargate, ECR and CloudFront.",
+      "CI/CD with GitHub Actions and Terraform onto Fargate, ECR and CloudFront.",
     ],
     stack: ["Python", "Flask", "React", "NumPy", "AWS", "Terraform", "Docker"],
     links: [{ label: "GitHub", href: "https://github.com/jennifershi255/MarketMatch" }],
@@ -159,70 +164,136 @@ export const languages = [
   },
 ];
 
-export const souvenirs = [
-  { name: "Italy", image: italyCover, href: "https://youtu.be/tR-0iuq9yCQ?si=9Ym6neh0KDWA_efh" },
-  { name: "New York", image: newYorkCover, href: "https://youtu.be/23AMHv1Rfi0?si=5nJpnSE03vHvIY52" },
+// Bag check. `box` places the item inside the backpack (viewBox 400 x 520) and should
+// match the image's aspect ratio. `material` sets its x-ray colour: organic (orange),
+// inorganic (green), metal (blue). Images need a transparent background. An optional
+// `photo` replaces the image in the item's popup, cropped to fill it; `photoPosition`
+// (CSS object-position) picks which part of the photo stays in view.
+export const bagItems = [
+  {
+    id: "ipad",
+    name: "iPad",
+    material: "metal",
+    kind: "Electronics",
+    body: "I love watching Netflix on my iPad during flights. Currently watching The Mentalist :)",
+    image: ipadImg,
+    photo: ipadPhoto,
+    box: { x: 292, y: 150, w: 94, h: 134 },
+    tilt: -7,
+  },
+  {
+    id: "book",
+    name: "Books",
+    material: "organic",
+    kind: "Paper",
+    body: "I love reading to pass the time on flights.",
+    bodyLink: { label: "Check out my Goodreads!", href: "https://www.goodreads.com/jennifershi" },
+    photo: "/images/new_york/lg/373f122d4a057a33dba71ec1b6373f09.jpg",
+    box: { x: 386, y: 192, w: 64, h: 98 },
+    tilt: 76,
+  },
+  {
+    id: "headphones",
+    name: "Headphones",
+    material: "inorganic",
+    kind: "Electronics",
+    body: "Rarely off. Something is always playing while I work, and I play a few instruments myself. (check out the music feature in the bottom right corner to see what I'm listening to!)",
+    image: headphonesImg,
+    photo: headphonesPhoto,
+    photoPosition: "50% 78%",
+    box: { x: 228, y: 120, w: 82, h: 108 },
+    tilt: 8,
+  },
+  {
+    id: "jellycat",
+    name: "Stuffies",
+    material: "organic",
+    kind: "Plush",
+    body: "Always need an emotional support animal. I love jellycats <3",
+    image: jellycatImg,
+    box: { x: 478, y: 122, w: 126, h: 122 },
+    tilt: -9,
+  },
+  {
+    id: "food",
+    name: "Food",
+    material: "organic",
+    kind: "Snack",
+    body: "I love food. I'm not picky and will eat anything.",
+    photo: foodPhoto,
+    photoPosition: "42% 58%",
+    box: { x: 438, y: 230, w: 68, h: 96 },
+    tilt: 12,
+  },
 ];
 
 export const sections = [
   { id: "check-in", label: "Check-in" },
   { id: "passport", label: "Passport" },
+  { id: "security", label: "Bag check" },
   { id: "layovers", label: "Experience" },
   { id: "destinations", label: "Projects" },
   { id: "arrivals", label: "Contact" },
 ];
 
-// One ambient loop per stop; chords are MIDI note numbers.
+export const playlistCover = playlistCoverImg;
+
+// Cabin playlist. Swap these placeholders for real tracks:
+// title, artist, album, artwork (image url), src (audio url), duration (seconds).
 export const playlist = [
   {
-    id: "check-in",
-    title: "Check-in",
-    section: "check-in",
-    code: "CHK",
-    color: "#e8452c",
-    notes: passenger.intro,
-    chords: [[53, 57, 60, 64], [57, 60, 64, 67], [50, 57, 60, 65], [58, 62, 65, 69]],
+    id: "stranger",
+    title: "stranger",
+    artist: "Olivia Rodrigo",
+    album: "GUTS (spilled)",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/08/9e/07/089e0799-b405-9e69-b648-e6a19df9879c/24UMGIM30485.rgb.jpg/600x600bb.jpg",
+    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3f/2c/94/3f2c9448-5581-c4fa-1e21-8ffe4ec6c079/mzaf_14126863622900479277.plus.aac.p.m4a",
+    duration: 193,
   },
   {
-    id: "passport",
-    title: "Passport",
-    section: "passport",
-    code: "PSP",
-    color: "#2f6b4f",
-    notes: "Visa stamps for every role, plus special entries for the things outside work.",
-    chords: [[46, 53, 58, 62], [43, 50, 55, 58], [48, 55, 60, 63], [41, 48, 53, 57]],
+    id: "cant-be-moved",
+    title: "The Man Who Can't Be Moved",
+    artist: "The Script",
+    album: "The Script",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/17/06/81/1706814a-d412-9c54-008f-36475e4785b5/mzm.zwddzkpt.jpg/600x600bb.jpg",
+    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/bc/db/8b/bcdb8b07-df98-6ce0-71f7-5f28af758d03/mzaf_7954318052370447652.plus.aac.p.m4a",
+    duration: 241,
   },
   {
-    id: "layovers",
-    title: "Layovers",
-    section: "layovers",
-    code: "LAY",
-    color: "#6a3d8f",
-    notes: "Four stops so far, each with one thing worth carrying to the next.",
-    chords: [[49, 56, 61, 65], [46, 53, 58, 61], [42, 49, 54, 58], [44, 51, 56, 60]],
+    id: "peter",
+    title: "Peter",
+    artist: "Taylor Swift",
+    album: "THE TORTURED POETS DEPARTMENT: THE ANTHOLOGY",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a4/86/59/a486593a-53c9-1c2a-5122-8f25339f7359/24UMGIM44778.rgb.jpg/600x600bb.jpg",
+    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/95/0d/5f/950d5fc4-1b36-587d-18d8-9d0321f03c50/mzaf_6013794920239683432.plus.aac.p.m4a",
+    duration: 284,
   },
-  ...projects.map((p, i) => ({
-    id: p.id,
-    title: p.name,
-    section: "destinations",
-    project: p.id,
-    code: p.name.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase(),
-    color: ["#2a4b8d", "#2f6b4f", "#b8862b", "#6a3d8f"][i % 4],
-    notes: p.result,
-    chords: [
-      [[48, 55, 62, 64], [45, 52, 60, 64], [41, 48, 57, 60], [43, 50, 59, 62]],
-      [[50, 57, 62, 66], [47, 54, 59, 62], [43, 50, 55, 59], [45, 52, 57, 61]],
-      [[52, 59, 64, 67], [48, 55, 60, 64], [45, 52, 57, 60], [47, 54, 59, 62]],
-      [[55, 62, 67, 71], [52, 59, 64, 67], [48, 55, 60, 64], [50, 57, 62, 66]],
-    ][i % 4],
-  })),
   {
-    id: "arrivals",
-    title: "Arrivals",
-    section: "arrivals",
-    code: "ARR",
-    color: "#e8452c",
-    notes: "Bags are on belt 1. Email, LinkedIn and GitHub are all waiting.",
-    chords: [[53, 60, 65, 69], [50, 57, 62, 65], [46, 53, 58, 62], [48, 55, 60, 64]],
+    id: "love-lost",
+    title: "Love Lost",
+    artist: "Mac Miller",
+    album: "I Love Life, Thank You",
+    artwork: "https://cdn-images.dzcdn.net/images/cover/7fcf2282f0c695708dedfbdb972daf25/1000x1000-000000-80-0-0.jpg",
+    src: "",
+    deezerId: 3596368942,
+    duration: 163,
+  },
+  {
+    id: "altitude",
+    title: "Altitude",
+    artist: "Sydney Ross Mitchell",
+    album: "Pure Bliss Forever",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4d/ec/05/4dec0568-737f-18c4-6934-7ff186263718/417747.jpg/600x600bb.jpg",
+    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f4/ad/3d/f4ad3d85-f6ef-7dfc-44f3-9a8dd05724b0/mzaf_277447919524081337.plus.aac.p.m4a",
+    duration: 172,
+  },
+  {
+    id: "mr-blue-sky",
+    title: "Mr. Blue Sky",
+    artist: "Lily Allen",
+    album: "Alright, Still (Deluxe Edition)",
+    artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music3/v4/5c/78/2b/5c782b65-4feb-6909-88b3-78894e8321ac/dj.uoqyorun.jpg/600x600bb.jpg",
+    src: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a7/c9/18/a7c9183e-34d9-5116-5a54-a070b4743855/mzaf_4526410126233696650.plus.aac.p.m4a",
+    duration: 226,
   },
 ];

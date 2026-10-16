@@ -3,6 +3,7 @@ import { motion, useAnimationControls } from "framer-motion";
 import { passenger, roles, specialEntries } from "../../data/journey";
 import { cabinAudio } from "./cabinAudio";
 import { Arrow, Plane } from "./Icons";
+import { flyTo } from "./flyTo";
 
 const tilt = (i) => [-9, 6, -4, 8, -6, 4, -11, 7][i % 8];
 const pad = (n) => String(n).padStart(2, "0");
@@ -404,8 +405,11 @@ export default function Passport() {
         <button
           type="button"
           className="jn-book-btn"
-          onClick={() => step(1)}
-          disabled={turned === maxTurned}
+          onClick={() => {
+            if (turned < maxTurned) step(1);
+            else if (reduced) document.getElementById("security")?.scrollIntoView();
+            else flyTo("security");
+          }}
         >
           <span>{turned === 0 ? "Open" : "Next"}</span>
           <Arrow size={14} />

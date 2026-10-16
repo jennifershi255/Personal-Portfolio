@@ -1,13 +1,57 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { playlist, sections } from "../../data/journey";
+import { playlist, playlistCover } from "../../data/journey";
 import { cabinAudio } from "./cabinAudio";
-import { Close, Headphones, Next, Pause, Play, Prev, Speaker, Arrow } from "./Icons";
+import { Close, Globe, Headphones, Next, Pause, Play, Prev, Shuffle, Speaker } from "./Icons";
 
-const LOOP_SECONDS = 16;
+const TILES = [
+  "#e8452c",
+  "#2f6b4f",
+  "#2a4b8d",
+  "#b8862b",
+  "#6a3d8f",
+  "#c8553d",
+];
 const pad = (n) => String(n).padStart(2, "0");
-const clock = (s) => `${Math.floor(s / 60)}:${pad(Math.floor(s % 60))}`;
-const sectionLabel = (id) => sections.find((s) => s.id === id)?.label ?? "";
+const clock = (s) => {
+  if (!Number.isFinite(s) || s < 0) return "0:00";
+  return `${Math.floor(s / 60)}:${pad(Math.floor(s % 60))}`;
+};
+
+function Art({ src, title, color }) {
+  if (src) return <img src={src} alt="" draggable="false" />;
+  return (
+    <span className="jn-ife-fallback" style={{ background: color }} aria-hidden>
+      {(title || "?").charAt(0)}
+    </span>
+  );
+}
+
+function randomIndex(avoid = -1) {
+  if (playlist.length <= 1) return 0;
+  let i = Math.floor(Math.random() * playlist.length);
+  if (i === avoid) i = (i + 1) % playlist.length;
+  return i;
+}
+
+function resolveSrc(song) {
+  if (song.src) return Promise.resolve(song.src);
+  if (!song.deezerId) return Promise.resolve("");
+  return new Promise((resolve) => {
+    const cb = `jnDz${Date.now()}${Math.floor(Math.random() * 1e4)}`;
+    const script = document.createElement("script");
+    const done = (url) => {
+      delete window[cb];
+      script.remove();
+      resolve(url || "");
+    };
+    window[cb] = (data) => done(data?.preview);
+    script.src = `https://api.deezer.com/track/${song.deezerId}?output=jsonp&callback=${cb}`;
+    script.onerror = () => done("");
+    document.head.appendChild(script);
+  });
+}
 
 function Bars({ active }) {
   return (
@@ -19,19 +63,82 @@ function Bars({ active }) {
   );
 }
 
-export default function InFlight({ onGoTo }) {
+export default function InFlight() {
+  const audioRef = useRef(null);
+  const indexRef = useRef(0);
+  const mutedRef = useRef(false);
+  const shuffleRef = useRef(false);
+  const playGen = useRef(0);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  const [duration, setDuration] = useState(playlist[0]?.duration ?? 0);
   const track = playlist[index];
+  const listed = playlist.length;
+  const total = playlist.reduce((sum, t) => sum + (t.duration || 0), 0);
+
+  const playIndex = useCallback(async (i, auto = true) => {
+    const next = (i + playlist.length) % playlist.length;
+    const song = playlist[next];
+    const audio = audioRef.current;
+    const gen = ++playGen.current;
+    indexRef.current = next;
+    setIndex(next);
+    setElapsed(0);
+    setDuration(song.duration || 0);
+    const src = await resolveSrc(song);
+    if (gen !== playGen.current) return;
+    if (!src || !audio) {
+      audio?.pause();
+      setPlaying(false);
+      cabinAudio.setPlaying(false);
+      return;
+    }
+    audio.src = src;
+    audio.muted = mutedRef.current;
+    if (!auto) {
+      setPlaying(false);
+      cabinAudio.setPlaying(false);
+      return;
+    }
+    try {
+      await audio.play();
+      if (gen !== playGen.current) return;
+      setPlaying(true);
+      cabinAudio.setPlaying(true);
+    } catch {
+      if (gen !== playGen.current) return;
+      setPlaying(false);
+      cabinAudio.setPlaying(false);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!playing) return;
-    const id = setInterval(() => setElapsed(cabinAudio.elapsed), 250);
-    return () => clearInterval(id);
-  }, [playing]);
+    const audio = new Audio();
+    audioRef.current = audio;
+    const onTime = () => setElapsed(audio.currentTime);
+    const onMeta = () => {
+      if (Number.isFinite(audio.duration) && audio.duration > 0)
+        setDuration(audio.duration);
+    };
+    const onEnded = () => {
+      const i = shuffleRef.current ? randomIndex(indexRef.current) : indexRef.current + 1;
+      playIndex(i);
+    };
+    audio.addEventListener("timeupdate", onTime);
+    audio.addEventListener("loadedmetadata", onMeta);
+    audio.addEventListener("ended", onEnded);
+    return () => {
+      audio.pause();
+      audio.src = "";
+      audio.removeEventListener("timeupdate", onTime);
+      audio.removeEventListener("loadedmetadata", onMeta);
+      audio.removeEventListener("ended", onEnded);
+    };
+  }, [playIndex]);
 
   useEffect(() => {
     if (!open) return;
@@ -40,41 +147,64 @@ export default function InFlight({ onGoTo }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  useEffect(() => () => cabinAudio.pause(), []);
-
-  const playIndex = useCallback((i) => {
-    setIndex(i);
-    cabinAudio.play(playlist[i]);
-    setPlaying(true);
-    setElapsed(0);
-  }, []);
+  useEffect(
+    () => () => {
+      audioRef.current?.pause();
+      cabinAudio.setPlaying(false);
+    },
+    [],
+  );
 
   const toggle = () => {
+    const audio = audioRef.current;
     if (playing) {
-      cabinAudio.pause();
+      audio?.pause();
       setPlaying(false);
-    } else {
-      playIndex(index);
+      cabinAudio.setPlaying(false);
+      return;
     }
+    if (audio?.src && audio.currentTime > 0.4 && !audio.ended) {
+      audio
+        .play()
+        .then(() => {
+          setPlaying(true);
+          cabinAudio.setPlaying(true);
+        })
+        .catch(() => setPlaying(false));
+      return;
+    }
+    playIndex(shuffleRef.current ? randomIndex() : index);
+  };
+
+  const toggleShuffle = () => {
+    const next = !shuffle;
+    shuffleRef.current = next;
+    setShuffle(next);
   };
 
   const toggleMute = () => {
-    cabinAudio.setMuted(!muted);
-    setMuted(!muted);
+    const next = !muted;
+    mutedRef.current = next;
+    if (audioRef.current) audioRef.current.muted = next;
+    setMuted(next);
+    cabinAudio.setMuted(next);
   };
 
   const step = (d) => {
-    const i = (index + d + playlist.length) % playlist.length;
-    if (playing) playIndex(i);
-    else setIndex(i);
+    if (shuffleRef.current) playIndex(randomIndex(index), playing);
+    else playIndex(index + d, playing);
   };
 
-  const goTo = () => {
-    onGoTo(track);
-    if (window.matchMedia("(max-width: 767px)").matches) setOpen(false);
+  const seek = (e) => {
+    const audio = audioRef.current;
+    const length = audio?.duration || duration;
+    if (!audio?.src || !length) return;
+    const box = e.currentTarget.getBoundingClientRect();
+    const next = ((e.clientX - box.left) / box.width) * length;
+    audio.currentTime = next;
+    setElapsed(next);
   };
 
-  const loop = (elapsed % LOOP_SECONDS) / LOOP_SECONDS;
 
   return (
     <>
@@ -90,6 +220,9 @@ export default function InFlight({ onGoTo }) {
             {muted ? "Muted" : "Sound on"}
           </button>
         )}
+        <Link className="jn-ife-fab" to="/travel" aria-label="Travel globe">
+          <Globe size={24} />
+        </Link>
         <button
           type="button"
           className={`jn-ife-fab${open ? " is-open" : ""}`}
@@ -109,7 +242,7 @@ export default function InFlight({ onGoTo }) {
             id="jn-ife-panel"
             className="jn-ife"
             role="dialog"
-            aria-label="In-flight entertainment"
+            aria-label="Cabin playlist"
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
@@ -118,7 +251,7 @@ export default function InFlight({ onGoTo }) {
             <header className="jn-ife-head">
               <div>
                 <span className="jn-ife-kicker">In-flight entertainment</span>
-                <span className="jn-ife-title">Flight JS 255 playlist</span>
+                <span className="jn-ife-title">Jennifer's playlist</span>
               </div>
               <div className="jn-ife-head-actions">
                 <button
@@ -130,45 +263,48 @@ export default function InFlight({ onGoTo }) {
                   <Speaker size={16} muted={muted} />
                   {muted ? "Muted" : "Sound on"}
                 </button>
-                <button type="button" className="jn-ife-icon" onClick={() => setOpen(false)} aria-label="Close player">
+                <button
+                  type="button"
+                  className="jn-ife-icon"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close player"
+                >
                   <Close />
                 </button>
               </div>
             </header>
 
-            <div className="jn-ife-now">
-              <div className="jn-ife-cover" style={{ "--c": track.color }} aria-hidden>
-                <span>{track.code}</span>
-                <i />
+            <div className="jn-ife-hero">
+              <div className="jn-ife-cover" aria-hidden>
+                <img src={playlistCover} alt="" draggable="false" />
               </div>
-              <div className="jn-ife-info">
-                <span className="jn-ife-track">{track.title}</span>
-                <span className="jn-ife-artist">Jennifer Shi · {sectionLabel(track.section)}</span>
-                <p className="jn-ife-notes">{track.notes}</p>
-                <button type="button" className="jn-ife-go" onClick={goTo}>
-                  Go to {track.title} <Arrow />
+              <div className="jn-ife-hero-copy">
+                <span className="jn-ife-hero-name">current favs</span>
+                <span className="jn-ife-hero-by">🤍</span>
+                <span className="jn-ife-hero-meta">
+                  {listed} song{listed === 1 ? "" : "s"}
+                  {total ? ` · ${clock(total)}` : ""}
+                </span>
+              </div>
+              <div className="jn-ife-hero-actions">
+                <button
+                  type="button"
+                  className={`jn-ife-shuffle${shuffle ? " is-on" : ""}`}
+                  onClick={toggleShuffle}
+                  aria-pressed={shuffle}
+                  aria-label={shuffle ? "Turn shuffle off" : "Turn shuffle on"}
+                >
+                  <Shuffle size={15} />
+                </button>
+                <button
+                  type="button"
+                  className="jn-ife-play"
+                  onClick={toggle}
+                  aria-label={playing ? "Pause" : "Play"}
+                >
+                  {playing ? <Pause size={16} /> : <Play size={16} />}
                 </button>
               </div>
-            </div>
-
-            <div className="jn-ife-progress">
-              <span>{clock(elapsed)}</span>
-              <span className="jn-ife-bar">
-                <i style={{ transform: `scaleX(${playing ? loop : 0})` }} />
-              </span>
-              <span>loop</span>
-            </div>
-
-            <div className="jn-ife-controls">
-              <button type="button" className="jn-ife-icon" onClick={() => step(-1)} aria-label="Previous track">
-                <Prev />
-              </button>
-              <button type="button" className="jn-ife-play" onClick={toggle} aria-label={playing ? "Pause" : "Play"}>
-                {playing ? <Pause size={20} /> : <Play size={20} />}
-              </button>
-              <button type="button" className="jn-ife-icon" onClick={() => step(1)} aria-label="Next track">
-                <Next />
-              </button>
             </div>
 
             <ol className="jn-ife-list">
@@ -180,18 +316,84 @@ export default function InFlight({ onGoTo }) {
                     onClick={() => (i === index ? toggle() : playIndex(i))}
                   >
                     <span className="jn-ife-num">
-                      {i === index && playing ? <Bars active={!muted} /> : pad(i + 1)}
+                      {i === index && playing ? (
+                        <Bars active={!muted} />
+                      ) : (
+                        pad(i + 1)
+                      )}
+                    </span>
+                    <span className="jn-ife-thumb">
+                      <Art
+                        src={t.artwork}
+                        title={t.title}
+                        color={TILES[i % TILES.length]}
+                      />
                     </span>
                     <span className="jn-ife-row">
                       <span>{t.title}</span>
-                      <small>{sectionLabel(t.section)}</small>
+                      <small>{t.artist}</small>
                     </span>
-                    <span className="jn-ife-code">{t.code}</span>
+                    <span className="jn-ife-time">{clock(t.duration)}</span>
                   </button>
                 </li>
               ))}
             </ol>
-            <p className="jn-ife-foot">Ambient loops generated in your browser. Silent until you press play.</p>
+
+            <div className="jn-ife-now">
+              <span className="jn-ife-thumb">
+                <Art
+                  src={track.artwork}
+                  title={track.title}
+                  color={TILES[index % TILES.length]}
+                />
+              </span>
+              <span className="jn-ife-row">
+                <span>{track.title}</span>
+                <small>{track.artist}</small>
+              </span>
+              <div className="jn-ife-controls">
+                <button
+                  type="button"
+                  className="jn-ife-icon"
+                  onClick={() => step(-1)}
+                  aria-label="Previous track"
+                >
+                  <Prev />
+                </button>
+                <button
+                  type="button"
+                  className="jn-ife-play is-small"
+                  onClick={toggle}
+                  aria-label={playing ? "Pause" : "Play"}
+                >
+                  {playing ? <Pause size={16} /> : <Play size={16} />}
+                </button>
+                <button
+                  type="button"
+                  className="jn-ife-icon"
+                  onClick={() => step(1)}
+                  aria-label="Next track"
+                >
+                  <Next />
+                </button>
+              </div>
+              <div className="jn-ife-progress">
+                <span>{clock(elapsed)}</span>
+                <button
+                  type="button"
+                  className="jn-ife-bar"
+                  onClick={seek}
+                  aria-label="Seek"
+                >
+                  <i
+                    style={{
+                      transform: `scaleX(${duration ? Math.min(1, elapsed / duration) : 0})`,
+                    }}
+                  />
+                </button>
+                <span>{clock(duration)}</span>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

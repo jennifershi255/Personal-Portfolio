@@ -3,8 +3,9 @@ import RouteNav from "./components/journey/RouteNav";
 import BoardingPass from "./components/journey/BoardingPass";
 import Destinations from "./components/journey/Destinations";
 import Passport from "./components/journey/Passport";
+import BagCheck from "./components/journey/BagCheck";
 import Layovers from "./components/journey/Layovers";
-import Arrivals, { OffDuty } from "./components/journey/Arrivals";
+import Arrivals from "./components/journey/Arrivals";
 import InFlight from "./components/journey/InFlight";
 import SleepMode from "./components/journey/SleepMode";
 import "./css/Journey.css";
@@ -28,39 +29,18 @@ export default function Journey() {
     });
   }, []);
 
-  const goTo = useCallback((track) => {
-    if (track.project) {
-      const ticket = document.getElementById(`ticket-${track.project}`);
-      if (!ticket) return;
-      // Expanding the entry mid-scroll triggers scroll anchoring, which cancels smooth scrolling.
-      let done = false;
-      const open = () => {
-        if (done) return;
-        done = true;
-        window.removeEventListener("scrollend", open);
-        setOpenProject(track.project);
-      };
-      if (Math.abs(ticket.getBoundingClientRect().top) < 120) return open();
-      window.addEventListener("scrollend", open, { once: true });
-      setTimeout(open, 1200);
-      ticket.scrollIntoView({ behavior: "smooth", block: "start" });
-      return;
-    }
-    document.getElementById(track.section)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
   return (
     <div className={`jn${redEye ? " is-redeye" : ""}`}>
       <RouteNav redEye={redEye} onToggleRedEye={toggleRedEye} />
       <main>
         <BoardingPass />
         <Passport />
+        <BagCheck />
         <Layovers />
         <Destinations openProject={openProject} onOpenProject={setOpenProject} />
-        <OffDuty />
         <Arrivals />
       </main>
-      <InFlight onGoTo={goTo} />
+      <InFlight />
       <SleepMode />
     </div>
   );
