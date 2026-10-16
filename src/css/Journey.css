@@ -875,6 +875,7 @@ body:has(.jn.is-redeye) {
 .jn-pc {
   display: grid;
   gap: 24px;
+  container-type: inline-size;
 }
 
 .jn-pc-name {
@@ -906,22 +907,22 @@ body:has(.jn.is-redeye) {
   --tilt: -1.2deg;
   position: relative;
   order: -1;
-  container-type: inline-size;
   perspective: 1800px;
   cursor: pointer;
-  rotate: var(--tilt);
-  transition:
-    rotate 0.45s ease,
-    translate 0.45s ease;
+  transform: rotate(var(--tilt));
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.45s ease;
 }
 
 .jn-pc.is-alt .jn-pc-card {
   --tilt: 1.4deg;
 }
 
-.jn-pc-card:hover {
-  rotate: 0deg;
-  translate: 0 -4px;
+@media (hover: hover) and (pointer: fine) {
+  .jn-pc-card:hover {
+    transform: rotate(0deg) translateY(-4px);
+  }
 }
 
 .jn-pc-tape {
@@ -943,6 +944,7 @@ body:has(.jn.is-redeye) {
   position: relative;
   aspect-ratio: 3 / 2;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -950,11 +952,25 @@ body:has(.jn.is-redeye) {
   transform: rotateY(180deg);
 }
 
+/* iOS flattens this 3D scene; hide the front once the card is edge-on. */
+@media (hover: none) {
+  .jn-pc-front {
+    transition: visibility 0s linear 0.42s;
+  }
+
+  .jn-pc.is-flipped .jn-pc-front {
+    visibility: hidden;
+  }
+}
+
 .jn-pc-front,
 .jn-pc-back {
   position: absolute;
   inset: 0;
   border-radius: 4px;
+  overflow: visible;
+  transform: rotateY(0deg) translateZ(1px);
+  -webkit-transform: rotateY(0deg) translateZ(1px);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   box-shadow:
@@ -962,8 +978,18 @@ body:has(.jn.is-redeye) {
     0 26px 44px -28px rgba(40, 30, 10, 0.6);
 }
 
-.jn-pc-front {
+.jn-pc-skin {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
+  border-radius: inherit;
+}
+
+.jn-pc-front {
+  background: var(--paper-2);
+}
+
+.jn-pc-front .jn-pc-skin {
   background: var(--paper-2);
   border: 10px solid var(--photo);
 }
@@ -974,9 +1000,11 @@ body:has(.jn.is-redeye) {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.jn-pc-front::after {
+.jn-pc-front .jn-pc-skin::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1076,6 +1104,13 @@ body:has(.jn.is-redeye) {
 }
 
 .jn-pc-back {
+  background: var(--card);
+  transform: rotateY(180deg) translateZ(1px);
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+  cursor: pointer;
+}
+
+.jn-pc-back .jn-pc-skin {
   overflow: auto;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -1083,8 +1118,6 @@ body:has(.jn.is-redeye) {
   gap: 12px;
   padding: 12px 12px 14px;
   background: var(--card);
-  transform: rotateY(180deg);
-  cursor: pointer;
 }
 
 .jn-pc-note {
@@ -1552,7 +1585,7 @@ body:has(.jn.is-redeye) {
     padding-top: 8px;
   }
 
-  .jn-pc-back {
+  .jn-pc-back .jn-pc-skin {
     gap: 8px;
     padding: 10px;
   }
@@ -3758,7 +3791,7 @@ body:has(.jn.is-redeye) {
     order: 1;
   }
 
-  .jn-pc-back {
+  .jn-pc-back .jn-pc-skin {
     gap: 22px;
     padding: 22px 24px 24px;
   }

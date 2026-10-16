@@ -61,83 +61,87 @@ function Postcard({ project, number, flipped, onFlip }) {
         <span className="jn-pc-tape" aria-hidden />
         <div className="jn-pc-inner">
           <div className="jn-pc-front" aria-hidden={flipped}>
-            {project.image && <img src={project.image} alt="" loading="lazy" />}
-            <div className="jn-pc-greet">
-              <span>Greetings from</span>
-              <strong>{project.name}</strong>
+            <div className="jn-pc-skin">
+              {project.image && <img src={project.image} alt="" loading="lazy" />}
+              <div className="jn-pc-greet">
+                <span>Greetings from</span>
+                <strong>{project.name}</strong>
+              </div>
+              <span className="jn-pc-stamp is-small" aria-hidden>
+                <span>No.</span>
+                <b>{pad(number)}</b>
+              </span>
+              <span className="jn-pc-hint" aria-hidden>
+                <Flip size={12} /> Flip me
+              </span>
             </div>
-            <span className="jn-pc-stamp is-small" aria-hidden>
-              <span>No.</span>
-              <b>{pad(number)}</b>
-            </span>
-            <span className="jn-pc-hint" aria-hidden>
-              <Flip size={12} /> Flip me
-            </span>
           </div>
 
           <div id={backId} className="jn-pc-back" aria-hidden={!flipped}>
-            <div className="jn-pc-note">
-              <span className="jn-label">The problem</span>
-              <p className="jn-pc-hand">{project.origin}</p>
-              <span className="jn-label">What I built</span>
-              <p className="jn-pc-hand">{project.destination}</p>
-              <ul className="jn-pc-log">
-                {project.log.map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-              <p className="jn-pc-sign">Best regards, {passenger.firstName}</p>
-            </div>
-
-            <div className="jn-pc-side">
-              <div className="jn-pc-marks">
-                <span className="jn-pc-postmark" aria-hidden>
-                  <span>{passenger.flight}</span>
-                  <span>No. {pad(number)}</span>
-                </span>
-                <span className="jn-pc-stamp">
-                  {project.image && (
-                    <img src={project.image} alt="" loading="lazy" />
-                  )}
-                  <span>{project.tagline}</span>
-                </span>
+            <div className="jn-pc-skin">
+              <div className="jn-pc-note">
+                <span className="jn-label">The problem</span>
+                <p className="jn-pc-hand">{project.origin}</p>
+                <span className="jn-label">What I built</span>
+                <p className="jn-pc-hand">{project.destination}</p>
+                <ul className="jn-pc-log">
+                  {project.log.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+                <p className="jn-pc-sign">Best regards, {passenger.firstName}</p>
               </div>
-              <dl className="jn-pc-address">
-                {project.flightTime && (
-                  <div>
-                    <dt>Flight time</dt>
-                    <dd>{project.flightTime}</dd>
-                  </div>
-                )}
-                {project.crew && (
-                  <div>
-                    <dt>Crew</dt>
-                    <dd>{project.crew}</dd>
-                  </div>
-                )}
-                <div>
-                  <dt>Class</dt>
-                  <dd>{project.stack.join(", ")}</dd>
+
+              <div className="jn-pc-side">
+                <div className="jn-pc-marks">
+                  <span className="jn-pc-postmark" aria-hidden>
+                    <span>{passenger.flight}</span>
+                    <span>No. {pad(number)}</span>
+                  </span>
+                  <span className="jn-pc-stamp">
+                    {project.image && (
+                      <img src={project.image} alt="" loading="lazy" />
+                    )}
+                    <span>{project.tagline}</span>
+                  </span>
                 </div>
-                <div>
-                  <dt>Gate</dt>
-                  <dd>
-                    {project.links.length
-                      ? project.links.map((l) => (
-                          <a
-                            key={l.href}
-                            href={l.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            tabIndex={flipped ? 0 : -1}
-                          >
-                            {l.label} ↗
-                          </a>
-                        ))
-                      : "Private codebase"}
-                  </dd>
-                </div>
-              </dl>
+                <dl className="jn-pc-address">
+                  {project.flightTime && (
+                    <div>
+                      <dt>Flight time</dt>
+                      <dd>{project.flightTime}</dd>
+                    </div>
+                  )}
+                  {project.crew && (
+                    <div>
+                      <dt>Crew</dt>
+                      <dd>{project.crew}</dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt>Class</dt>
+                    <dd>{project.stack.join(", ")}</dd>
+                  </div>
+                  <div>
+                    <dt>Gate</dt>
+                    <dd>
+                      {project.links.length
+                        ? project.links.map((l) => (
+                            <a
+                              key={l.href}
+                              href={l.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              tabIndex={flipped ? 0 : -1}
+                            >
+                              {l.label} ↗
+                            </a>
+                          ))
+                        : "Private codebase"}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
             </div>
           </div>
         </div>
