@@ -442,6 +442,7 @@ body:has(.jn.is-redeye) {
   justify-content: center;
   gap: 32px;
   padding-top: calc(var(--nav-h) + 40px);
+  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
 }
 
 .jn-hello {
@@ -509,8 +510,6 @@ body:has(.jn.is-redeye) {
     0 1px 0 rgba(0, 0, 0, 0.04),
     0 8px 20px -12px rgba(40, 30, 10, 0.3),
     0 34px 70px -34px rgba(40, 30, 10, 0.5);
-  transform-style: preserve-3d;
-  will-change: transform;
 }
 
 .jn-pass-glare {
@@ -528,6 +527,7 @@ body:has(.jn.is-redeye) {
   gap: 22px;
   padding: 22px 20px 24px;
   border-radius: 18px 18px 0 0;
+  transform-style: preserve-3d;
 }
 
 /* Once the stub starts tearing, each half paints its own card, shadow and ragged seam. */
@@ -819,9 +819,19 @@ body:has(.jn.is-redeye) {
 }
 
 .jn-stub-btns {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  pointer-events: auto;
+}
+
+.jn-stub-btns .jn-btn {
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .jn-stub-links {
@@ -3045,6 +3055,11 @@ body:has(.jn.is-redeye) {
   display: flex;
   align-items: center;
   gap: 10px;
+  pointer-events: none;
+}
+
+.jn-ife-dock > * {
+  pointer-events: auto;
 }
 
 .jn-ife-fab {

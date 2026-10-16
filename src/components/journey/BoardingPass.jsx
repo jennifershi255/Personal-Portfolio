@@ -148,6 +148,7 @@ export default function BoardingPass() {
   const glareX = useTransform(px, [-0.5, 0.5], ["0%", "100%"]);
 
   const tilt = canHover && !reduced;
+  const stubRef = useRef(null);
 
   const { scrollY } = useScroll();
   const tearRange = Math.max(320, window.innerHeight * 0.6);
@@ -160,10 +161,17 @@ export default function BoardingPass() {
   }, [scrollY]);
 
   useMotionValueEvent(tear, "change", (v) => setTorn(!reduced && v > 0.004));
-  const stubStyle = reduced ? undefined : { "--jn-peel": peel };
+
+  useLayoutEffect(() => {
+    if (reduced) return;
+    const node = stubRef.current;
+    if (!node) return;
+    const apply = (v) => node.style.setProperty("--jn-peel", String(v));
+    apply(peel.get());
+    return peel.on("change", apply);
+  }, [peel, reduced]);
 
   const fly = (e) => {
-    if (reduced) return;
     e.preventDefault();
     flyTo("passport", () => history.replaceState(null, "", "#passport"));
   };
@@ -193,7 +201,6 @@ export default function BoardingPass() {
         <motion.article
           ref={ref}
           className={`jn-pass${torn ? " is-torn" : ""}`}
-          style={tilt && !torn ? { rotateX, rotateY } : undefined}
           initial={reduced ? false : { y: 40, opacity: 0, rotate: -2 }}
           animate={{ y: 0, opacity: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 90, damping: 16, delay: 0.15 }}
@@ -201,7 +208,7 @@ export default function BoardingPass() {
         >
           {tilt && <motion.span className="jn-pass-glare" style={{ "--gx": glareX }} aria-hidden />}
 
-          <div className="jn-pass-main">
+          <motion.div className="jn-pass-main" style={tilt && !torn ? { rotateX, rotateY } : undefined}>
             <header className="jn-pass-top">
               <span className="jn-pass-airline">
                 <Plane size={14} /> Boarding pass
@@ -255,9 +262,9 @@ export default function BoardingPass() {
               </div>
             </div>
             <span className="jn-tear-edge" aria-hidden />
-          </div>
+          </motion.div>
 
-          <motion.div className="jn-pass-stub" style={stubStyle}>
+          <div className="jn-pass-stub" ref={stubRef}>
             <span className="jn-tear-edge" aria-hidden />
             <div className="jn-stub-fields">
               <div className="jn-field">
@@ -291,7 +298,7 @@ export default function BoardingPass() {
               </div>
             </div>
             <Barcode />
-          </motion.div>
+          </div>
         </motion.article>
       </div>
 
