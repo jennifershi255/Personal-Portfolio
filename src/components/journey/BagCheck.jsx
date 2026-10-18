@@ -41,8 +41,7 @@ function loadImage(src) {
   });
 }
 
-function tintToCanvas(img, w, h, [r, g, b]) {
-  const scale = 2;
+function tintToCanvas(img, w, h, [r, g, b], scale) {
   const off = document.createElement("canvas");
   off.width = Math.max(1, Math.round(w * scale));
   off.height = Math.max(1, Math.round(h * scale));
@@ -142,7 +141,7 @@ function drawBook(ctx, w, h, [r, g, b]) {
 }
 
 async function bakeXraySheet() {
-  const scale = 2;
+  const scale = window.innerWidth < 768 ? 1 : 2;
   const canvas = document.createElement("canvas");
   canvas.width = VIEW_W * scale;
   canvas.height = VIEW_H * scale;
@@ -181,14 +180,17 @@ async function bakeXraySheet() {
   ctx.stroke(new Path2D(HANDLE));
   ctx.restore();
 
-  const prepared = await Promise.all(
-    bagItems.map(async (item) => {
-      const color = hexRgb(MATERIALS[item.material]?.color ?? MATERIALS.inorganic.color);
-      if (!item.image) return { item, color, tint: null };
-      const img = await loadImage(item.image);
-      return { item, color, tint: tintToCanvas(img, item.box.w, item.box.h, color) };
-    }),
-  );
+  const prepared = [];
+  for (const item of bagItems) {
+    const color = hexRgb(MATERIALS[item.material]?.color ?? MATERIALS.inorganic.color);
+    if (!item.image) {
+      prepared.push({ item, color, tint: null });
+      continue;
+    }
+    const img = await loadImage(item.image);
+    prepared.push({ item, color, tint: tintToCanvas(img, item.box.w, item.box.h, color, scale) });
+    if (scale === 1) await new Promise((resolve) => setTimeout(resolve, 0));
+  }
 
   for (const { item, color, tint } of prepared) {
     const { x, y, w, h } = item.box;
@@ -201,11 +203,14 @@ async function bakeXraySheet() {
     ctx.restore();
   }
 
-  return canvas.toDataURL("image/png");
+  return scale === 1 ? canvas.toDataURL("image/jpeg", 0.85) : canvas.toDataURL("image/png");
 }
 
-const xraySheet =
-  typeof window === "undefined" ? Promise.resolve("") : bakeXraySheet().catch(() => "");
+let xraySheet;
+function loadXraySheet() {
+  xraySheet ??= bakeXraySheet().catch(() => "");
+  return xraySheet;
+}
 
 // Fallback drawings for items without a photo, in the coordinate space of the item's `box`.
 const SHAPES = {
@@ -481,12 +486,32 @@ export default function BagCheck() {
   const opener = useRef(null);
 
   useEffect(() => {
+    const el = document.getElementById("security");
+    if (!el) return;
     let on = true;
-    xraySheet.then((url) => {
-      if (on) setSheet(url);
-    });
+    const start = () => {
+      loadXraySheet().then((url) => {
+        if (on) setSheet(url);
+      });
+    };
+    if (!("IntersectionObserver" in window)) {
+      start();
+      return () => {
+        on = false;
+      };
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        start();
+        observer.disconnect();
+      },
+      { rootMargin: "700px" },
+    );
+    observer.observe(el);
     return () => {
       on = false;
+      observer.disconnect();
     };
   }, []);
 

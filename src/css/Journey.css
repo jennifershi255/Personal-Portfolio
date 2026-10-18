@@ -718,6 +718,14 @@ body:has(.jn.is-redeye) {
   gap: 2px;
 }
 
+.jn-board-plain {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: #f2ead8;
+}
+
 .jn-flap {
   position: relative;
   flex: 1 1 0;
@@ -1367,7 +1375,13 @@ body:has(.jn.is-redeye) {
   grid-area: 1 / 1;
 }
 
-.jn-book:not(.is-spread) .jn-leaf.is-turned {
+.jn-book:not(.is-spread) .jn-leaf {
+  transition: opacity 0.28s ease;
+}
+
+.jn-book:not(.is-spread) .jn-leaf.is-turned,
+.jn-book:not(.is-spread) .jn-leaf.is-ahead {
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -1388,6 +1402,12 @@ body:has(.jn.is-redeye) {
   -webkit-backface-visibility: hidden;
 }
 
+.jn-pp-page.is-stamps {
+  height: max-content;
+  min-height: max-content;
+  overflow: visible;
+}
+
 .jn-pp-page.is-back {
   transform: rotateY(180deg);
   border-radius: 10px 4px 4px 10px;
@@ -1405,8 +1425,10 @@ body:has(.jn.is-redeye) {
   transition: transform 0.45s ease;
 }
 
-.jn-book:not(.is-open) .jn-leaf:hover .jn-pp-page.is-cover {
-  transform: rotateY(-14deg);
+@media (hover: hover) and (pointer: fine) {
+  .jn-book:not(.is-open) .jn-leaf:hover .jn-pp-page.is-cover {
+    transform: rotateY(-14deg);
+  }
 }
 
 .jn-pp-cover {
@@ -1546,9 +1568,13 @@ body:has(.jn.is-redeye) {
 
 @media (max-width: 767px) {
   .jn-pp-page {
-    min-height: 0;
-    height: min(56svh, 420px);
-    padding: 14px 14px 32px;
+    min-height: min(56svh, 420px);
+    height: auto;
+    padding: 14px 14px 28px;
+  }
+
+  .jn-pp-page.is-stamps {
+    min-height: 540px;
   }
 
   .jn-pp-cover {
@@ -1666,6 +1692,42 @@ body:has(.jn.is-redeye) {
 
   .jn-book .jn-stamps.is-small .jn-stamp-name {
     font-size: 12px;
+  }
+
+  /* Nine stamps share one page. A fixed page height was clipping the lower rows. */
+  .jn-book .jn-stamps.is-all {
+    display: grid;
+    flex: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: center;
+    justify-items: center;
+    gap: 6px;
+  }
+
+  .jn-book .jn-stamps.is-all .jn-stamp.is-circle,
+  .jn-book .jn-stamps.is-all .jn-stamp.is-oval,
+  .jn-book .jn-stamps.is-all .jn-stamp.is-rect {
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    aspect-ratio: 1;
+    padding: 14px 10px;
+  }
+
+  .jn-book .jn-stamps.is-all .jn-stamp-top,
+  .jn-book .jn-stamps.is-all .jn-stamp-role,
+  .jn-book .jn-stamps.is-all .jn-stamp-date {
+    font-size: 7px;
+    letter-spacing: 0.04em;
+  }
+
+  .jn-book .jn-stamps.is-all .jn-stamp-name {
+    font-size: 10px;
+  }
+
+  .jn-book .jn-stamps.is-all .jn-stamp-date {
+    margin-top: 2px;
+    padding-top: 2px;
   }
 }
 
@@ -1830,26 +1892,25 @@ body:has(.jn.is-redeye) {
 }
 
 .jn-stamps.is-all {
-  gap: 10px 14px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: stretch;
   align-content: center;
+  gap: 10px 12px;
+  flex: none;
 }
 
-.jn-stamps.is-all .jn-stamp.is-circle {
-  width: 112px;
-  height: 112px;
-  padding: 10px;
-}
-
-.jn-stamps.is-all .jn-stamp.is-oval {
-  width: 136px;
-  height: 90px;
-  padding: 10px 14px;
-}
-
+.jn-stamps.is-all .jn-stamp.is-circle,
+.jn-stamps.is-all .jn-stamp.is-oval,
 .jn-stamps.is-all .jn-stamp.is-rect {
+  width: 100%;
+  max-width: none;
+  height: auto;
   min-width: 0;
-  width: 140px;
-  padding: 12px 10px;
+  aspect-ratio: 1;
+  justify-self: center;
+  padding: 10px 8px;
 }
 
 .jn-stamps.is-all .jn-stamp-name {
@@ -3864,6 +3925,49 @@ body:has(.jn.is-redeye) {
     right: 24px;
     bottom: 94px;
     width: 380px;
+  }
+}
+
+/* Phones: drop the effects that repaint on every scroll frame. */
+@media (max-width: 767px) {
+  html:has(.jn) {
+    scroll-behavior: auto;
+  }
+
+  .jn::before {
+    display: none;
+  }
+
+  .jn-nav {
+    background: var(--paper);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .jn-flight {
+    display: none;
+  }
+
+  .jn-pc-card {
+    transform: none;
+    perspective: 1200px;
+  }
+
+  .jn-pp-page:not(.is-cover) {
+    background-image: none;
+  }
+
+  .jn-book-pages {
+    perspective: none;
+  }
+
+  .jn-case::after {
+    animation: none;
+  }
+
+  .jn-ife-fab:hover,
+  .jn-ife-play:hover {
+    transform: none;
   }
 }
 

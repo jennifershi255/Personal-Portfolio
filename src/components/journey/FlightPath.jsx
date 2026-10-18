@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Pin, Plane } from "./Icons";
 import { clamp } from "./flyTo";
+import { useMobile } from "./useMobile";
 
 // Where the plane sits on screen, as a fraction of the viewport height, while the page scrolls.
 const ANCHOR = 0.6;
@@ -120,6 +121,7 @@ function hugLeft(root, pts, toDoc, stride, width) {
 }
 
 export default function FlightPath({ fromSelector, stopoverId, landingSelector }) {
+  const mobile = useMobile();
   const [root, setRoot] = useState(null);
   const [geo, setGeo] = useState(null);
   const path = useRef(null);
@@ -129,6 +131,13 @@ export default function FlightPath({ fromSelector, stopoverId, landingSelector }
   const origin = useRef(null);
 
   useEffect(() => {
+    // The trail is a full-page SVG that is redrawn on every scroll frame. On a phone that
+    // repaint is what makes the page stutter, so the path only runs on larger screens.
+    if (mobile) {
+      setRoot(null);
+      setGeo(null);
+      return;
+    }
     const el = document.querySelector(".jn");
     setRoot(el);
     let timer;
@@ -149,7 +158,7 @@ export default function FlightPath({ fromSelector, stopoverId, landingSelector }
       window.removeEventListener("load", soon);
       ro.disconnect();
     };
-  }, [fromSelector, stopoverId, landingSelector]);
+  }, [fromSelector, stopoverId, landingSelector, mobile]);
 
   useLayoutEffect(() => {
     if (!geo) return;

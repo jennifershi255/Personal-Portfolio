@@ -12,6 +12,7 @@ import { passenger, contact } from "../../data/journey";
 import { Arrow, Plane } from "./Icons";
 import FlightPath from "./FlightPath";
 import { flyTo } from "./flyTo";
+import { useMobile } from "./useMobile";
 
 const FLAP_CHARS = " ABCDEFGHIJKLMNOPQRSTUVWXYZ+&·";
 
@@ -53,7 +54,7 @@ function Flap({ target, delay }) {
   );
 }
 
-function DepartureBoard({ words }) {
+function DepartureBoard({ words, plain }) {
   const reduced = usePrefersReducedMotion();
   const length = Math.max(...words.map((w) => w.length));
   const [index, setIndex] = useState(0);
@@ -63,6 +64,19 @@ function DepartureBoard({ words }) {
     const id = setInterval(() => setIndex((i) => (i + 1) % words.length), 3200);
     return () => clearInterval(id);
   }, [reduced, words.length]);
+
+  if (plain) {
+    return (
+      <div className="jn-board" aria-label={`Roles: ${words.join(", ")}`}>
+        <span className="jn-board-label" aria-hidden>
+          Now boarding
+        </span>
+        <span className="jn-board-plain" aria-hidden>
+          {words[index]}
+        </span>
+      </div>
+    );
+  }
 
   const text = words[index].toUpperCase().padEnd(length, " ");
 
@@ -82,7 +96,7 @@ function DepartureBoard({ words }) {
 
 const GREETINGS = ["Welcome aboard.", "Bienvenue à bord."];
 
-function Typewriter({ phrases }) {
+function Typewriter({ phrases, paused }) {
   const reduced = usePrefersReducedMotion();
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(phrases[0].length);
@@ -90,7 +104,7 @@ function Typewriter({ phrases }) {
   const phrase = phrases[index];
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || paused) return;
     let delay;
     if (!deleting && count === phrase.length) delay = 2600;
     else if (deleting && count === 0) delay = 380;
@@ -104,7 +118,7 @@ function Typewriter({ phrases }) {
       } else setCount((c) => c + (deleting ? -1 : 1));
     }, delay);
     return () => clearTimeout(id);
-  }, [count, deleting, phrase.length, phrases.length, reduced]);
+  }, [count, deleting, phrase.length, phrases.length, reduced, paused]);
 
   const longest = phrases.reduce((a, b) => (b.length > a.length ? b : a));
 
@@ -139,8 +153,11 @@ function Barcode({ seed = "jennifershi255" }) {
 
 export default function BoardingPass() {
   const reduced = usePrefersReducedMotion();
+  const mobile = useMobile();
   const canHover = useMemo(() => window.matchMedia("(hover: hover) and (pointer: fine)").matches, []);
   const ref = useRef(null);
+  const sectionRef = useRef(null);
+  const [heroOnScreen, setHeroOnScreen] = useState(true);
   const px = useMotionValue(0);
   const py = useMotionValue(0);
   const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [5, -5]), { stiffness: 140, damping: 16 });
@@ -160,7 +177,20 @@ export default function BoardingPass() {
     scrollY.set(window.scrollY);
   }, [scrollY]);
 
-  useMotionValueEvent(tear, "change", (v) => setTorn(!reduced && v > 0.004));
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroOnScreen(entry.isIntersecting),
+      { rootMargin: "80px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useMotionValueEvent(tear, "change", (v) => {
+    setTorn(!reduced && v > 0.004);
+  });
 
   useLayoutEffect(() => {
     if (reduced) return;
@@ -188,11 +218,12 @@ export default function BoardingPass() {
   };
 
   return (
-    <section id="check-in" className="jn-section jn-checkin">
+    <section id="check-in" className="jn-section jn-checkin" ref={sectionRef}>
       <div className="jn-checkin-head">
         <p className="jn-kicker">Check-in · Gate open</p>
         <h1 className="jn-hello" aria-label={`Hi, I'm ${passenger.firstName}. ${GREETINGS[0]}`}>
-          <span aria-hidden>Hi, I&rsquo;m {passenger.firstName}.</span> <Typewriter phrases={GREETINGS} />
+          <span aria-hidden>Hi, I&rsquo;m {passenger.firstName}.</span>{" "}
+          <Typewriter phrases={GREETINGS} paused={!heroOnScreen} />
         </h1>
         <p className="jn-lede">{passenger.intro}</p>
       </div>
@@ -243,7 +274,7 @@ export default function BoardingPass() {
               </div>
             </div>
 
-            <DepartureBoard words={passenger.ticker} />
+            <DepartureBoard words={passenger.ticker} plain={mobile} />
 
             <div className="jn-pass-grid">
               <div className="jn-field">

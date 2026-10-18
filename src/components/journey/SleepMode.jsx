@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMobile } from "./useMobile";
 
 const IDLE_MS = 60000;
 const WAKE_EVENTS = ["pointermove", "pointerdown", "keydown", "wheel", "touchstart", "scroll"];
 
 export default function SleepMode() {
+  const mobile = useMobile();
   const [asleep, setAsleep] = useState(false);
 
   useEffect(() => {
+    if (mobile) return;
     let timer;
     const arm = () => {
       clearTimeout(timer);
@@ -25,7 +28,9 @@ export default function SleepMode() {
       clearTimeout(timer);
       WAKE_EVENTS.forEach((e) => window.removeEventListener(e, wake));
     };
-  }, []);
+  }, [mobile]);
+
+  if (mobile) return null;
 
   return (
     <AnimatePresence>

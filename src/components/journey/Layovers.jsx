@@ -2,11 +2,9 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { roles } from "../../data/journey";
 import { Plane } from "./Icons";
+import { useMobile } from "./useMobile";
 
-export default function Layovers() {
-  const track = useRef(null);
-  const { scrollYProgress } = useScroll({ target: track, offset: ["start 75%", "end 55%"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
+function Timeline({ progress, track }) {
   const planeTop = useTransform(progress, (v) => `${v * 100}%`);
 
   return (
@@ -71,4 +69,22 @@ export default function Layovers() {
       </div>
     </section>
   );
+}
+
+function SmoothTimeline() {
+  const track = useRef(null);
+  const { scrollYProgress } = useScroll({ target: track, offset: ["start 75%", "end 55%"] });
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
+  return <Timeline track={track} progress={progress} />;
+}
+
+function DirectTimeline() {
+  const track = useRef(null);
+  const { scrollYProgress } = useScroll({ target: track, offset: ["start 75%", "end 55%"] });
+  return <Timeline track={track} progress={scrollYProgress} />;
+}
+
+export default function Layovers() {
+  const mobile = useMobile();
+  return mobile ? <DirectTimeline /> : <SmoothTimeline />;
 }

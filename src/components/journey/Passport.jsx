@@ -119,6 +119,7 @@ function Identity() {
             src={passenger.photo}
             alt={`${passenger.firstName} ${passenger.lastName}`}
             loading="lazy"
+            decoding="async"
           />
         </div>
         <dl className="jn-pp-fields">
@@ -328,13 +329,14 @@ export default function Passport() {
             <span className="jn-book-board" aria-hidden />
             <div className="jn-book-pages">
               <div
-                className="jn-pp-page is-front"
+                className="jn-pp-page is-front is-stamps"
                 {...hiddenProps(PAGES.length - 1)}
               >
                 {render(PAGES.length - 1)}
               </div>
               {leaves.map(([front, back], i) => {
                 const isTurned = i < turned;
+                const ahead = !spread && front !== page;
                 const moving = i >= lo && i < hi;
                 const order = forward ? i - lo : hi - 1 - i;
                 const restZ = isTurned ? i + 1 : N - i;
@@ -353,17 +355,22 @@ export default function Passport() {
                 return (
                   <motion.div
                     key={`${spread}-${i}`}
-                    className={`jn-leaf${isTurned ? " is-turned" : ""}`}
+                    className={`jn-leaf${isTurned ? " is-turned" : ""}${ahead ? " is-ahead" : ""}`}
                     initial={false}
-                    animate={{ rotateY: isTurned ? -180 : 0, zIndex }}
-                    transition={{
-                      rotateY: timing,
-                      zIndex: {
-                        ...timing,
-                        times: [0, 0.5, 0.501, 0.999, 1],
-                        ease: "linear",
-                      },
-                    }}
+                    animate={spread ? { rotateY: isTurned ? -180 : 0, zIndex } : undefined}
+                    style={spread ? undefined : { zIndex: restZ }}
+                    transition={
+                      spread
+                        ? {
+                            rotateY: timing,
+                            zIndex: {
+                              ...timing,
+                              times: [0, 0.5, 0.501, 0.999, 1],
+                              ease: "linear",
+                            },
+                          }
+                        : { duration: 0 }
+                    }
                     onClick={(e) => onLeafClick(e, isTurned)}
                   >
                     <div
